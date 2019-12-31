@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { useForm } from 'react-hook-form';
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 
 
@@ -8,20 +9,26 @@ import axios from "axios";
 // start of Component
 
 const Signup = props => {
-  
+  const { register, errors } = useForm();
+  const onSubmit = data => console.log(data);
+  console.log(errors);
   const [newUser, setNewUser] = useState({
     firstname: "",
     lastname: "",
     username: "",
     password: "", 
     email: "",
-    phone: null,
-    address: null, 
-    state: null,
-    city: null,
-    zipcode: null
+    phone: "",
+    address: "", 
+    state: "",
+    city: "",
+    zipcode: ""
              
   });
+
+  const cancelItem = () => {
+    window.history.back();
+  };
 
   const handleChange = e => { 
     setNewUser({
@@ -30,26 +37,26 @@ const Signup = props => {
     })
   };
 
-  const handleSubmit = e => {
-    
-    e.preventDefault();
-
-    axios
-      .post('https://chefportfolio10.herokuapp.com/api/auth/register', newUser)     
+  const handleSubmit = e => {    
+   
+    axiosWithAuth()
+      .post('/auth/register', newUser)     
       .then(res => {
         console.log("registration res", res)
         localStorage.setItem('token', res.data.token)
-        // localStorage.setItem('userId', res.data.user.id)
-        props.history.push('/login')
+        localStorage.setItem('userId', res.data.user.id)
+        props.history.push('/chefdash')
       }, [])
+      
       .catch(error => console.log(error));
+      
   };
 
   return (
     
 
       <div className="signup">
-        <form onSubmit={handleSubmit} noValidate>
+        <form onSubmit={handleSubmit(onSubmit)} >
        
         <h3>Sign-Up</h3>
           <input
@@ -58,6 +65,7 @@ const Signup = props => {
             onChange={handleChange}
             value={newUser.firstname}
             type="text"
+            ref={register({required: true, maxLength: 20})}
           />        
           <input
             name="lastname"
@@ -65,6 +73,7 @@ const Signup = props => {
             onChange={handleChange}
             value={newUser.lastname}
             type="text"
+            ref={register({required: true, maxLength: 20})}
           />
           <br/>
           <input
@@ -72,7 +81,8 @@ const Signup = props => {
             placeholder="Username"
             onChange={handleChange}
             value={newUser.username}
-            type="text"         
+            type="text"
+            ref={register({required: true, maxLength: 10})}         
           /> 
                
           <input
@@ -81,6 +91,7 @@ const Signup = props => {
             onChange={handleChange}
             value={newUser.password}
             type="password"
+            ref={register({required: true, min: 3, maxLength: 12})}
           />
            
           <br/>
@@ -90,7 +101,7 @@ const Signup = props => {
             onChange={handleChange}
             value={newUser.email}
             type="email"
-          
+            ref={register({required: true, min: 5, maxLength: 20})}
           />
            
           <input
@@ -98,7 +109,8 @@ const Signup = props => {
             placeholder="Phone"
             onChange={handleChange}
             value={newUser.phone}
-            type="phone"
+            type="tel"
+            ref={register}
           />
           <br/>
           <input
@@ -107,6 +119,7 @@ const Signup = props => {
             onChange={handleChange}
             value={newUser.address}
             type="text"
+            ref={register}
           />
           <input
             name="state"
@@ -114,6 +127,7 @@ const Signup = props => {
             onChange={handleChange}
             value={newUser.state}
             type="text"
+            ref={register}
           />
           <input
             name="city"
@@ -121,6 +135,7 @@ const Signup = props => {
             onChange={handleChange}
             value={newUser.city}
             type="text"
+            ref={register}
           />          
           <br/>        
           <input
@@ -129,9 +144,11 @@ const Signup = props => {
             onChange={handleChange}
             value={newUser.zipcode}
             type="text"
+            ref={register}
           />
           <br/>        
           <button>Submit</button>
+          <button onClick={cancelItem} >Cancel</button>
         </form>
       </div>
     

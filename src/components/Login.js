@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {axiosWithAuth} from '../utils/axiosWithAuth'
-import Loader from 'react-loader-spinner'
+
 
 
 export const Login = props => {
@@ -18,7 +18,11 @@ const handleChange = e => {
         [e.target.name]: e.target.value
     })
 }
-    
+ 
+const cancelItem = () => {
+    window.history.back();
+  };
+
 const handleSubmit = e => {
     e.preventDefault();
     console.log('Login data', data);
@@ -58,8 +62,8 @@ const handleSubmit = e => {
                         placeholder='Password'
                     />
                     <br/>
-                    <button type='submit'>Log In</button>
-                    
+                    <button type='submit' >Log In</button>
+                    <button onClick={cancelItem} >Cancel</button>
             </form>
         </div>
     )
