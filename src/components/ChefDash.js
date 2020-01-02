@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react'
 import {axiosWithAuth} from '../utils/axiosWithAuth'
 import Logout from './Logout'
 import AddRecipe from './AddRecipe'
+import { RecipeCard } from './RecipeCard';
+import { Link } from "react-router-dom";
 
 
 
@@ -28,18 +30,15 @@ import AddRecipe from './AddRecipe'
             <AddRecipe />
           
           
-        {/* {recipes.map(post => (
-                <EditRecipes
-                    key={post.id}
-                    recipes={recipes}
-                    recipeEdit={recipeEdit}
-                    deleteRecipe={deleteRecipe}
-                    />                    
-                    
-            ))} */}
+            {recipes.map(item => (
+                
+                   <Link to={`/recipes/${item.id}`}>{item.recipe_name}</Link>   
+                
+               
+           ))}
                 
         </div>
-        // Have an Add Button and this button
+        //Have an Add Button and this button
         //will take us to the Add Recipe Form
         //Put an onClick inside the div
     )
