@@ -17,10 +17,8 @@ const handleChange = e => {
         [e.target.name]: e.target.value
     })
 }
- 
-const cancelItem = () => {
-    window.history.back();
-  };
+console.log('here are the props',props.setOpen) 
+
 
 const handleSubmit = e => {
     e.preventDefault();
@@ -62,7 +60,7 @@ const handleSubmit = e => {
                     />
                     <br/>
                     <button type='submit' >Log In</button>
-                    <button onClick={cancelItem} >Cancel</button>
+                    <button onClick={props.cancelItem} >Cancel</button>
             </form>
         </div>
     )

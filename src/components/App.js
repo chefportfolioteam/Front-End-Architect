@@ -14,9 +14,10 @@ import Logout from './components/Logout'
 
 
 function App() {
-console.log(localStorage.getItem('userId'))
+// console.log(localStorage.getItem('userId'))
   const [recipes, setRecipes] = useState([])
     //get posts from api server using axioswithAuth
+  const [open, setOpen] = useState(false)
     useEffect(() => {
         axiosWithAuth()
         .get(`/auth/user/${localStorage.getItem('userId')}`)
@@ -61,23 +62,33 @@ const deleteRecipe = post => {
         console.log(err)
     })
 }
-      
+const onSubmit = e => {
+  e.preventDefault()
+  setOpen(true)
+} 
+const cancelItem = () => {
+  // window.history.back();
+  setOpen(false)
+  console.log(setOpen)
+};    
   return (
-    
+
       <div className="App">
+         <Login setOpen={setOpen} />  
         <AuthContext.Provider value={{recipeEdit, addRecipe, deleteRecipe}}>
            <UserDash/>
            
            <Router> 
                 <nav>
-                <Link to='/login'>Log In</Link>
+                {/* <Link to='/login'>Log In</Link> */}
                 <Link to='/signup'>Sign Up</Link>
+                <button onClick={onSubmit}>Log In</button>
                 
                 </nav>
 
                    
                 <PrivateRoute exact path='/chefdash' component={ChefDash}/> 
-                <Route path='/login' component={Login}/> 
+                {/* <Route path='/login' component={Login}/>  */}
                 <Route path='/signup' component={Signup}/>
                 <Route path='/' component={Logout}/>
             </Router>
