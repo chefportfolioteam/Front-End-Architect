@@ -9,6 +9,8 @@ import ChefDash from './components/ChefDash'
 import {AuthContext} from'./Contexts/AuthContext' 
 import Signup from './components/Signup'
 import Logout from './components/Logout'
+import EditRecipe from './components/EditRecipe';
+import { RecipeCard } from './components/RecipeCard';
 
 
 
@@ -28,8 +30,9 @@ console.log(localStorage.getItem('userId'))
 
 
   const recipeEdit = recipe => {
+      console.log(recipe)
     axiosWithAuth()
-    .put(`/auth/user/recipes${recipes.id}`, recipe)
+    .put(`/auth/user/recipes/${recipes.id}`, recipe)
     .then(res => {
         setRecipes(res.data)
     })
@@ -50,7 +53,7 @@ const addRecipe = newRecipe => {
         console.log(err)
     })
 }
-//delete request for deletepost
+
 const deleteRecipe = post => {
     axiosWithAuth()
     .delete(`/auth/user/recipes/${recipes.id}`)
@@ -66,20 +69,25 @@ const deleteRecipe = post => {
     
       <div className="App">
         <AuthContext.Provider value={{recipeEdit, addRecipe, deleteRecipe}}>
-           <UserDash/>
+           {/* <UserDash/> */}
            
            <Router> 
                 <nav>
                 <Link to='/login'>Log In</Link>
                 <Link to='/signup'>Sign Up</Link>
-                
                 </nav>
-
-                   
+                
                 <PrivateRoute exact path='/chefdash' component={ChefDash}/> 
                 <Route path='/login' component={Login}/> 
                 <Route path='/signup' component={Signup}/>
                 <Route path='/' component={Logout}/>
+                <Route exact path = '/edit-recipe/:id' component ={EditRecipe}/>
+               
+                {/* <Route exact path = '/recipes/:id' component={RecipeCard}/> */}
+                
+
+                <Route path="/recipes/:id" render={props => 
+                         <RecipeCard {...props} />}/>
             </Router>
         </AuthContext.Provider>
       </div>
