@@ -1,17 +1,22 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {AuthContext} from'../Contexts/AuthContext'
 import {EditContext} from'../Contexts/EditContext' 
 
 export const EditRecipe = props => {
+
+    const {recipeEdit} = useContext(AuthContext);
+    const {recipe} = useContext(AuthContext)
+
     const [editRecipe, setEditRecipes] = useState({
-        recipe_name: "",
-        ingredients: "",
-        instructions: ""
+        recipe_name: recipe.recipe_name,
+        ingredients: recipe.ingredients,
+        instructions: recipe.instructions
       });
 console.log(props)
 
-    const {recipeEdit} = useContext(AuthContext);
-    // const {recipe} = useContext(EditContext)
+    
+
+    console.log(recipe)
 
     const handleChange = e => {
         setEditRecipes({
@@ -22,12 +27,13 @@ console.log(props)
 
       const handleSubmit = e => {
         e.preventDefault();
-        recipeEdit(editRecipe);
+        recipeEdit(editRecipe, props.match.params.id);
         setEditRecipes({
           recipe_name: "",
           ingredients: "",
           instructions: ""
         });
+        props.history.push('/chefdash')
       };
 
 
@@ -39,14 +45,23 @@ console.log(props)
 
         <form onSubmit={handleSubmit}>
             <h3> Recipe Name</h3>
-            <input onChange={handleChange} name="recipe_name" placeholder="Recipe Name" />
+            <input onChange={handleChange} 
+            name="recipe_name" 
+            placeholder="Recipe Name"
+            value ={editRecipe.recipe_name} />
             <br/>
-            <textarea onChange={handleChange} name="ingredients"
+            <textarea 
+            onChange={handleChange} 
+            name="ingredients"
             placeholder="Ingredients" 
-            type="text"/>
+            type="text"
+            value={editRecipe.ingredients}/>
             <br/>
-            <textarea onChange={handleChange} name="instructions" 
-                placeholder="Description" />
+            <textarea 
+            onChange={handleChange} 
+            name="instructions" 
+            placeholder="Description"
+            value={editRecipe.instructions} />
             <br/>
             <button>Update Recipe</button>
             

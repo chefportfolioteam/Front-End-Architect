@@ -7,23 +7,19 @@ import EditRecipe from './EditRecipe'
 
 export const RecipeCard = props => {
 
-    const [recipe, setRecipe]= useState()
+    
 
     console.log(props)
 
-    useEffect(() => {
-        axiosWithAuth()
-        .get(`/recipes/${props.match.params.id}`)
-        .then(res => setRecipe(res.data))
-        
-        .catch(err => console.log(err.res))
-
-    }, [])
-
-    console.log(recipe)
+   
 
 
-    const {deleteRecipe} = useContext(AuthContext)
+    const {deleteRecipe, editinfo, recipe} = useContext(AuthContext)
+
+ useEffect (() => {
+    editinfo(props.match.params.id)
+ },[])
+    
 if(!recipe){
     return(
         <p>Loading</p>
@@ -38,9 +34,8 @@ if(!recipe){
             <EditContext.Provider value={{recipe}}>
             <div>
                 <span>{recipe.recipe_name}</span>
-                <span>{recipe.ingredients}</span>
-                <span>{recipe.instructions}</span>
-            
+                <p>{recipe.ingredients}</p>
+                <p>{recipe.instructions}</p>
             </div>
            
 
@@ -49,10 +44,9 @@ if(!recipe){
             
                 {/* <Route exact path = '/edit-recipe/:id' component ={EditRecipe}/> */}
 
-                <Route path="/edit-recipe/:id" render={props => 
-                         <EditRecipe {...props} recipe={recipe} />}/>
-                         
-            <button onClick={e => deleteRecipe(props.item.id)}>
+               
+
+            <button onClick={e => {deleteRecipe (props.match.params.id); props.history.push('/chefdash')} }>
                 Delete
             </button>
 

@@ -11,11 +11,15 @@ import Signup from './components/Signup'
 import Logout from './components/Logout'
 import EditRecipe from './components/EditRecipe';
 import { RecipeCard } from './components/RecipeCard';
+import AddRecipe from './components/AddRecipe'
 
 
 
 
 function App() {
+
+const [recipe, setRecipe]= useState()
+
 console.log(localStorage.getItem('userId'))
   const [recipes, setRecipes] = useState([])
     //get posts from api server using axioswithAuth
@@ -27,18 +31,22 @@ console.log(localStorage.getItem('userId'))
 
     }, [])
 
+    
 
 
-  const recipeEdit = recipe => {
+
+  const recipeEdit = (recipe, id) => {
       console.log(recipe)
     axiosWithAuth()
-    .put(`/auth/user/recipes/${recipes.id}`, recipe)
+    .put(`/auth/user/recipes/${id}`, recipe)
     .then(res => {
         setRecipes(res.data)
     })
     .catch(err => {
         console.log(err)
     })
+
+   
 }
 //post request to add post newPost
 
@@ -54,9 +62,9 @@ const addRecipe = newRecipe => {
     })
 }
 
-const deleteRecipe = post => {
+const deleteRecipe = id => {
     axiosWithAuth()
-    .delete(`/auth/user/recipes/${recipes.id}`)
+    .delete(`/auth/user/recipes/${id}`)
     .then(res => {
         setRecipes(res.data)
     })
@@ -64,24 +72,54 @@ const deleteRecipe = post => {
         console.log(err)
     })
 }
+
+const editinfo = id => {
+
+
+
+        axiosWithAuth()
+        .get(`/recipes/${id}`)
+        .then(res => setRecipe(res.data))
+     
+        .catch(err => console.log(err.res))
+
+
+    
+
+    console.log(recipe)
+
+
+}
+
       
   return (
     
       <div className="App">
-        <AuthContext.Provider value={{recipeEdit, addRecipe, deleteRecipe}}>
+        <AuthContext.Provider value={{recipeEdit, addRecipe, deleteRecipe, editinfo, recipe}}>
+           
+           <Route exact path='/' component={UserDash}/>
            {/* <UserDash/> */}
            
-           <Router> 
+           <Router>
+
+               {localStorage.getItem('token')? null :
                 <nav>
                 <Link to='/login'>Log In</Link>
                 <Link to='/signup'>Sign Up</Link>
                 </nav>
+}
                 
-                <PrivateRoute exact path='/chefdash' component={ChefDash}/> 
-                <Route path='/login' component={Login}/> 
-                <Route path='/signup' component={Signup}/>
-                <Route path='/' component={Logout}/>
-                <Route exact path = '/edit-recipe/:id' component ={EditRecipe}/>
+                <PrivateRoute>
+                <Route exact path='/chefdash' component={ChefDash}/>
+                <Route path ='/create' component={AddRecipe}/>
+                </PrivateRoute>
+                <Route exact path='/login' component={Login}/> 
+                <Route exact path='/signup' component={Signup}/>
+                
+                {/* <Route exact path = '/edit-recipe/:id' component ={EditRecipe}/> */}
+                
+                <Route path="/edit-recipe/:id" render={props => 
+                         <EditRecipe {...props} recipe={recipe} />}/>
                
                 {/* <Route exact path = '/recipes/:id' component={RecipeCard}/> */}
                 
