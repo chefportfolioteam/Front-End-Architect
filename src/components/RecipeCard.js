@@ -2,12 +2,13 @@ import React, { useState, useContext, useEffect } from "react";
 import {AuthContext} from'../Contexts/AuthContext'
 import {axiosWithAuth} from '../utils/axiosWithAuth'
 import {EditContext} from'../Contexts/EditContext' 
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as  Route, Link } from 'react-router-dom';
 import EditRecipe from './EditRecipe'
 
 export const RecipeCard = props => {
+    const {deleteRecipe, setRecipe, recipes } = useContext(AuthContext)
 
-    const [recipe, setRecipe]= useState()
+    
 
     console.log(props)
 
@@ -18,13 +19,13 @@ export const RecipeCard = props => {
         
         .catch(err => console.log(err.res))
 
-    }, [])
+    }, [props.match.params.id])
 
-    console.log(recipe)
+    console.log(recipes)
 
 
-    const {deleteRecipe} = useContext(AuthContext)
-if(!recipe){
+    
+if(!recipes){
     return(
         <p>Loading</p>
     )
@@ -35,11 +36,11 @@ if(!recipe){
 
         
         <div>
-            <EditContext.Provider value={{recipe}}>
+            <EditContext.Provider value={{recipes}}>
             <div>
-                <span>{recipe.recipe_name}</span>
-                <span>{recipe.ingredients}</span>
-                <span>{recipe.instructions}</span>
+                <span>{recipes.recipe_name}</span>
+                <span>{recipes.ingredients}</span>
+                <span>{recipes.instructions}</span>
             
             </div>
            
@@ -50,7 +51,7 @@ if(!recipe){
                 {/* <Route exact path = '/edit-recipe/:id' component ={EditRecipe}/> */}
 
                 <Route path="/edit-recipe/:id" render={props => 
-                         <EditRecipe {...props} recipe={recipe} />}/>
+                         <EditRecipe {...props} recipe={recipes} />}/>
                          
             <button onClick={e => deleteRecipe(props.item.id)}>
                 Delete

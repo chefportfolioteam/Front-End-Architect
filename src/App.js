@@ -11,18 +11,21 @@ import Signup from './components/Signup'
 import Logout from './components/Logout'
 import EditRecipe from './components/EditRecipe';
 import { RecipeCard } from './components/RecipeCard';
+import axios from 'axios'
 
 
 
 
 function App() {
-console.log(localStorage.getItem('userId'))
+
   const [recipes, setRecipes] = useState([])
     //get posts from api server using axioswithAuth
     useEffect(() => {
-        axiosWithAuth()
-        .get(`/auth/user/${localStorage.getItem('userId')}`)
+        axios
+        .get('https://chefportfolio10.herokuapp.com/api/recipes')
+
         .then(res => setRecipes(res.data))
+       
         .catch(err => console.log(err.res))
 
     }, [])
@@ -68,8 +71,12 @@ const deleteRecipe = post => {
   return (
     
       <div className="App">
-        <AuthContext.Provider value={{recipeEdit, addRecipe, deleteRecipe}}>
-           {/* <UserDash/> */}
+        <AuthContext.Provider value={{recipeEdit, 
+            addRecipe, 
+            deleteRecipe, 
+            setRecipes,
+            recipes }}>
+           <UserDash/>
            
            <Router> 
                 <nav>

@@ -9,12 +9,12 @@ const UserDash = props => {
     const [recipes, setRecipes] = useState([])
     
     
-    useEffect(() => {
-        axios
-        .get('https://chefportfolio10.herokuapp.com/api/recipes')
-        .then(res => setRecipes(res.data))
-        .catch(err => console.log(err.res))
-    }, [])
+    // useEffect(() => {
+    //     axios
+    //     .get('https://chefportfolio10.herokuapp.com/api/recipes')
+    //     .then(res => setRecipes(res.data))
+    //     .catch(err => console.log(err.res))
+    // }, [])
     
     return (
         <div>
