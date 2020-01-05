@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios'
-import {pictures} from '../../src/images'
+
 import { Link } from 'react-router-dom';
 
 
@@ -24,7 +24,7 @@ const UserDash = props => {
                         
            {recipes.map(item => (
               
-               <Link to={`/recipes/${item.id}`}>{ <img src={pictures[item.id]} alt='food'/>}{item.recipe_name}
+               <Link key={item.index} to={`/recipes/${item.id}`}>{item.recipe_name}
                  
                </Link>   
          

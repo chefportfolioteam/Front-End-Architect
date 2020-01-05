@@ -6,12 +6,12 @@ import { Link } from 'react-router-dom';
 
 export const RecipeCard = props => {
    
-    console.log(props)
-    const {deleteRecipe, editinfo, recipe} = useContext(AuthContext)
-
+    
+    const {deleteRecipe, editinfo, recipe, setRecipe, cancelItem} = useContext(AuthContext)
+    console.log(recipe)
  useEffect (() => {
     editinfo(props.match.params.id)
- }, [props.match.params.id, editinfo])
+ }, [])
     
 if(!recipe){
     return(
@@ -26,31 +26,26 @@ if(!recipe){
         <div>
             <EditContext.Provider value={{recipe}} >
             <div>
-                
+            <button onClick={cancelItem} >Cancel</button>
                 <span>{recipe.recipe_name}</span>
                 <p>{recipe.ingredients}</p>
                 <p>{recipe.instructions}</p>
             </div>
            
-
+                {localStorage.getItem('token')? null :
             
                 <Link to={`/edit-recipe/${props.match.params.id}`}>Update</Link>
-            
-                {/* <Route exact path = '/edit-recipe/:id' component ={EditRecipe}/> */}
-
-               
-
-            <button onClick={e => {deleteRecipe(props.match.params.id);
-                props.history.push('/chefdash')
-                console.log(props.match.params.id)
+            } 
+            {localStorage.getItem('token')? null :    
+                <button onClick={e => {deleteRecipe(props.match.params.id);
                 
+                props.history.push('/chefdash');
+                                                              
             }}>
                 Delete
             </button>
-
+            }   
             
- 
-            {/*Delete Button and OnClick to take us to the editRecipe */}
             </EditContext.Provider>
         </div>
     )

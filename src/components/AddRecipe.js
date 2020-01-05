@@ -22,10 +22,9 @@ const AddRecipe = props => {
     e.preventDefault();
     addRecipe(newRecipe);
     setNewRecipes({
-      recipe_name: "",
-      ingredients: "",
-      instructions: ""
+      newRecipe
     });
+    console.log(newRecipe)
     props.history.push('/chefdash')
   };
 

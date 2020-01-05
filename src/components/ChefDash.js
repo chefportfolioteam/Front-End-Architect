@@ -33,7 +33,7 @@ import {  Link } from "react-router-dom";
           
             {recipes.map(item => (
                 
-                   <Link to={`/recipes/${item.id}`}>{item.recipe_name}</Link>   
+                   <Link key={item.index} to={`/recipes/${item.id}`}>{item.recipe_name}</Link>   
            ))}
                 <Link to='/create'>
                     Create Recipe

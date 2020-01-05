@@ -1,13 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import UserDash from './components/UserDash'
 import PrivateRoute from './utils/PrivateRoute'
 import { 
     BrowserRouter as Router,
     Route,
-    Link,
-    Redirect,
-    Switch
+    Link
+   
     } from 'react-router-dom';
 import{Login} from './components/Login'
 import {axiosWithAuth} from './utils/axiosWithAuth'
@@ -25,10 +24,10 @@ import AddRecipe from './components/AddRecipe'
 
 function App() {
 
-const [recipe, setRecipe]= useState()
+    const [recipe, setRecipe]= useState()
+   
 
-
-  const [recipes, setRecipes] = useState([])
+    const [recipes, setRecipes] = useState([])
     //get posts from api server using axioswithAuth
     useEffect(() => {
         axiosWithAuth()
@@ -59,13 +58,12 @@ const [recipe, setRecipe]= useState()
 }
 //post request to add post newPost
 
-const addRecipe = (newRecipe, e) => {
+const addRecipe = (newRecipe) => {
     axiosWithAuth()
     .post(`/auth/user/1`, newRecipe )
     .then(res => { 
-          
-           
-        setRecipes(recipes => [...recipes, res, recipe])
+                     
+        setRecipes(newRecipe, res.data)
       
     })
     .catch(err => {
@@ -91,7 +89,7 @@ const editinfo = id => {
             setRecipe(res.data)
         })    
         .catch(err => console.log(err.res))
-    console.log(recipe)
+    
 }
 // the cancel Button to back out of modals
 const cancelItem = () => {
@@ -108,11 +106,15 @@ const cancelItem = () => {
             editinfo, 
             recipe,
             cancelItem,
+            setRecipe,
+            
+            
+            
            
             }}>
            
            <Route exact path='/' component={UserDash}/>
-           {/* <UserDash/> */}
+          
            
            <Router>
 
@@ -133,10 +135,10 @@ const cancelItem = () => {
                 <Route exact path='/chefdash' component={ChefDash}/>
                 <Route path ='/create' component={AddRecipe}/>
                 </PrivateRoute>
-                <Switch>
-                <Route  path='/login' component={Login}/> 
-                <Route  path='/signup' component={Signup}/>
-                </Switch>
+                
+                <Route  exact path='/login' component={Login}/> 
+                <Route  exact path='/signup' component={Signup}/>
+               
                 {/* <Route exact path = '/edit-recipe/:id' component ={EditRecipe}/> */}
                 
                 <Route path="/edit-recipe/:id" render={props => 
