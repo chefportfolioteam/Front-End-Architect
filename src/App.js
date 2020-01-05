@@ -2,16 +2,23 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import UserDash from './components/UserDash'
 import PrivateRoute from './utils/PrivateRoute'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { 
+    BrowserRouter as Router,
+    Route,
+    Link,
+    Redirect,
+    Switch
+    } from 'react-router-dom';
 import{Login} from './components/Login'
 import {axiosWithAuth} from './utils/axiosWithAuth'
 import ChefDash from './components/ChefDash'
 import {AuthContext} from'./Contexts/AuthContext' 
 import Signup from './components/Signup'
-import Logout from './components/Logout'
 import EditRecipe from './components/EditRecipe';
 import { RecipeCard } from './components/RecipeCard';
 import AddRecipe from './components/AddRecipe'
+
+
 
 
 
@@ -20,12 +27,12 @@ function App() {
 
 const [recipe, setRecipe]= useState()
 
-console.log(localStorage.getItem('userId'))
+
   const [recipes, setRecipes] = useState([])
     //get posts from api server using axioswithAuth
     useEffect(() => {
-        axios
-        .get('https://chefportfolio10.herokuapp.com/api/recipes')
+        axiosWithAuth()
+        .get(`/auth/user/${localStorage.getItem('userId')}`)
 
         .then(res => setRecipes(res.data))
        
@@ -52,12 +59,14 @@ console.log(localStorage.getItem('userId'))
 }
 //post request to add post newPost
 
-const addRecipe = newRecipe => {
+const addRecipe = (newRecipe, e) => {
     axiosWithAuth()
-    .post('/auth/user/1', newRecipe )
-    .then(res => {
-      console.log(res)
-        setRecipes(res.data)
+    .post(`/auth/user/1`, newRecipe )
+    .then(res => { 
+          
+           
+        setRecipes(recipes => [...recipes, res, recipe])
+      
     })
     .catch(err => {
         console.log(err)
@@ -76,28 +85,31 @@ const deleteRecipe = id => {
 }
 
 const editinfo = id => {
-
-
-
         axiosWithAuth()
         .get(`/recipes/${id}`)
-        .then(res => setRecipe(res.data))
-     
+        .then(res => {
+            setRecipe(res.data)
+        })    
         .catch(err => console.log(err.res))
-
-
-    
-
     console.log(recipe)
-
-
 }
+// the cancel Button to back out of modals
+const cancelItem = () => {
+    window.history.back();
+  };
 
-      
   return (
     
       <div className="App">
-        <AuthContext.Provider value={{recipeEdit, addRecipe, deleteRecipe, editinfo, recipe}}>
+        <AuthContext.Provider value={{
+            recipeEdit, 
+            addRecipe, 
+            deleteRecipe, 
+            editinfo, 
+            recipe,
+            cancelItem,
+           
+            }}>
            
            <Route exact path='/' component={UserDash}/>
            {/* <UserDash/> */}
@@ -105,19 +117,26 @@ const editinfo = id => {
            <Router>
 
                {localStorage.getItem('token')? null :
-                <nav>
-                <Link to='/login'>Log In</Link>
-                <Link to='/signup'>Sign Up</Link>
-                </nav>
-}
+                <nav >
+                    
+                  
+                    <Link to='/login'
+                    >Log In</Link>
+                    <Link to=
+                    '/signup'
+                    >Sign Up</Link>
+                  
+                </nav> }
+
                 
                 <PrivateRoute>
                 <Route exact path='/chefdash' component={ChefDash}/>
                 <Route path ='/create' component={AddRecipe}/>
                 </PrivateRoute>
-                <Route exact path='/login' component={Login}/> 
-                <Route exact path='/signup' component={Signup}/>
-                
+                <Switch>
+                <Route  path='/login' component={Login}/> 
+                <Route  path='/signup' component={Signup}/>
+                </Switch>
                 {/* <Route exact path = '/edit-recipe/:id' component ={EditRecipe}/> */}
                 
                 <Route path="/edit-recipe/:id" render={props => 
@@ -127,7 +146,7 @@ const editinfo = id => {
                 
 
                 <Route path="/recipes/:id" render={props => 
-                         <RecipeCard {...props} />}/>
+                         <RecipeCard  {...props} />}/>
             </Router>
         </AuthContext.Provider>
       </div>

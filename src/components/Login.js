@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useContext } from 'react';
 import {axiosWithAuth} from '../utils/axiosWithAuth'
-
+import {AuthContext} from'../Contexts/AuthContext'
 
 export const Login = props => {
-   
+    const {cancelItem} = useContext(AuthContext)
     const [data, setData] = useState({
         username: '',
         password: '',
@@ -17,7 +17,7 @@ const handleChange = e => {
         [e.target.name]: e.target.value
     })
 }
-console.log('here are the props',props.setOpen) 
+
 
 
 const handleSubmit = e => {
@@ -60,7 +60,7 @@ const handleSubmit = e => {
                     />
                     <br/>
                     <button type='submit' >Log In</button>
-                    <button onClick={props.cancelItem} >Cancel</button>
+                    <button onClick={cancelItem} >Cancel</button>
             </form>
         </div>
     )

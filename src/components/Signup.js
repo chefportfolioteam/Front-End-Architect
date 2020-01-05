@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from 'react-hook-form';
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+import axios from "axios";
 
 
 
@@ -18,17 +18,15 @@ const Signup = props => {
     username: "",
     password: "", 
     email: "",
-    phone: "",
-    address: "", 
-    state: "",
-    city: "",
-    zipcode: ""
+    phone: null,
+    address: null, 
+    state: null,
+    city: null,
+    zipcode: null
              
   });
 
-  const cancelItem = () => {
-    window.history.back();
-  };
+  
 
   const handleChange = e => { 
     setNewUser({
@@ -39,13 +37,11 @@ const Signup = props => {
 
   const handleSubmit = e => {    
    
-    axiosWithAuth()
-      .post('/auth/register', newUser)     
+    axios
+      .post('https://chefportfolio10.herokuapp.com/api/auth/register', newUser)     
       .then(res => {
         console.log("registration res", res)
-        localStorage.setItem('token', res.data.token)
-        localStorage.setItem('userId', res.data.user.id)
-        props.history.push('/chefdash')
+        props.history.push('/login')
       }, [])
       
       .catch(error => console.log(error));
@@ -148,7 +144,7 @@ const Signup = props => {
           />
           <br/>        
           <button>Submit</button>
-          <button onClick={cancelItem} >Cancel</button>
+          <button onClick={props.cancelItem} >Cancel</button>
         </form>
       </div>
     

@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import {axiosWithAuth} from '../utils/axiosWithAuth'
 import Logout from './Logout'
-import AddRecipe from './AddRecipe'
-import { RecipeCard } from './RecipeCard';
-import { Route, Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 
 
 
@@ -20,7 +18,7 @@ import { Route, Link } from "react-router-dom";
     }, [])
 
     
-//put request for the edit passing post(body)hhdhdhd
+//put request for the edit passing post(body)
 //assigning variable that will be passed to editPost
    
     return (
@@ -28,7 +26,7 @@ import { Route, Link } from "react-router-dom";
             
             <h1>Chef DashBoard</h1>
             <h1>Recipes</h1>
-            {/* <AddRecipe /> */}
+           
 
             
           

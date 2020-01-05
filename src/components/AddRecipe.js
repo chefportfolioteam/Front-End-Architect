@@ -26,6 +26,7 @@ const AddRecipe = props => {
       ingredients: "",
       instructions: ""
     });
+    props.history.push('/chefdash')
   };
 
   return (
