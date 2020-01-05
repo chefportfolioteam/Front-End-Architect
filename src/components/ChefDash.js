@@ -32,14 +32,15 @@ import {  Link } from "react-router-dom";
           
           
             {recipes.map(item => (
-                
-                   <Link key={item.index} to={`/recipes/${item.id}`}>{item.recipe_name}</Link>   
+            
+                   <Link  to={`/recipes/${item.id}`}>{item.recipe_name}</Link> 
+                     
            ))}
                 <Link to='/create'>
                     Create Recipe
                 </Link>
 
-               <Logout/>
+               <Logout />
                 
         </div>
         //Have an Add Button and this button

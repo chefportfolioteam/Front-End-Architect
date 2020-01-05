@@ -118,13 +118,13 @@ const cancelItem = () => {
            
            <Router>
 
-               {localStorage.getItem('token')? null :
+               {localStorage.getItem('token') ? null :
                 <nav >
                     
                   
-                    <Link to='/login'
+                    <Link exact to='/login'
                     >Log In</Link>
-                    <Link to=
+                    <Link exact to=
                     '/signup'
                     >Sign Up</Link>
                   
@@ -139,12 +139,12 @@ const cancelItem = () => {
                 <Route  exact path='/login' component={Login}/> 
                 <Route  exact path='/signup' component={Signup}/>
                
-                {/* <Route exact path = '/edit-recipe/:id' component ={EditRecipe}/> */}
+                
                 
                 <Route path="/edit-recipe/:id" render={props => 
                          <EditRecipe {...props} recipe={recipe} />}/>
                
-                {/* <Route exact path = '/recipes/:id' component={RecipeCard}/> */}
+                
                 
 
                 <Route path="/recipes/:id" render={props => 
