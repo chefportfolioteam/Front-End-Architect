@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import {AuthContext} from'../Contexts/AuthContext'
 import {EditContext} from'../Contexts/EditContext' 
 import { Link } from 'react-router-dom';
+import UserDash from "./UserDash";
 
 
 export const RecipeCard = props => {
@@ -33,11 +34,12 @@ if(!recipe){
                
             </div>
 
-                    
-            
+               {!UserDash &&    
+                
                 <Link to={`/edit-recipe/${props.match.params.id}`}>Update</Link>
              
-              
+                }
+                {!UserDash && 
                 <button onClick={e => {deleteRecipe(props.match.params.id);
                
                 props.history.push('/chefdash');
@@ -45,8 +47,8 @@ if(!recipe){
             }}>
                 Delete
             </button>
-              
-            
+            }
+        
             </EditContext.Provider>
         </div>
     )
