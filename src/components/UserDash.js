@@ -26,6 +26,13 @@ const UserDash = props => {
                <Link to={`/recipes/${item.id}`}>{item.recipe_name}</Link>   
          
            ))}
+
+{localStorage.getItem('token')? null :
+                <nav>
+                <Link to='/login'>Log In</Link>
+                <Link to='/signup'>Sign Up</Link>
+                </nav>
+}
              
 
         </div>

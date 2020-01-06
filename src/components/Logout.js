@@ -1,5 +1,5 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 
 class Logout extends React.Component  {
     state = {
@@ -22,4 +22,4 @@ class Logout extends React.Component  {
     
     }
 }
-export default Logout;
+export default withRouter(Logout);

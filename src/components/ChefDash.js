@@ -17,7 +17,7 @@ import { Route, Link } from "react-router-dom";
         .then(res => setRecipes(res.data))
         .catch(err => console.log(err.res))
 
-    }, [])
+    }, [recipes])
 
     
 //put request for the edit passing post(body)hhdhdhd

@@ -20,12 +20,8 @@ const AddRecipe = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    addRecipe(newRecipe);
-    setNewRecipes({
-      recipe_name: "",
-      ingredients: "",
-      instructions: ""
-    });
+    addRecipe(newRecipe)
+    props.history.push('/chefdash')
   };
 
   return (
