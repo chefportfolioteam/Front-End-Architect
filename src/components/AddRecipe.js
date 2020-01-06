@@ -24,7 +24,7 @@ const AddRecipe = props => {
     addRecipe(newRecipe);
     console.log(newRecipe)
     props.history.push('/chefdash')
-    setNewRecipes(e.target.value)
+    // setNewRecipes(e.target.value)
   };
 
   return (

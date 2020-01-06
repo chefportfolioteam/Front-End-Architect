@@ -16,7 +16,7 @@ function App() {
   //setting state for recipe
   const [recipe, setRecipe] = useState();
 
-  // const [recipes, setRecipes] = useState([])
+  const [recipes, setRecipes] = useState([])
   //get posts from api server using axioswithAuth
   useEffect(() => {
     axiosWithAuth()
@@ -42,7 +42,7 @@ function App() {
 
   const addRecipe = newRecipe => {
     axiosWithAuth()
-      .post(`/auth/user/1`, newRecipe)
+      .post(`/auth/user/`, newRecipe)
       .then(res => {
         setRecipe(res.data);
       })
@@ -90,7 +90,7 @@ function App() {
       >
         
 
-        <Router>
+        
           {localStorage.getItem("token") ? null : (
             <nav>
               <Link  to="/login">Log In</Link>
@@ -115,7 +115,7 @@ function App() {
               render={props => <RecipeCard {...props} />}
             />
          
-        </Router>
+       
       </AuthContext.Provider>
     </div>
   );
