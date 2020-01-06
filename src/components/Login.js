@@ -22,13 +22,16 @@ const handleChange = e => {
 
 const handleSubmit = e => {
     e.preventDefault();
-    console.log('Login data', data);
+   
     axiosWithAuth()
     .post('/auth/login', data)
     .then(res => {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('userId', res.data.user.id)
+        // console.log(data)   
         props.history.push('/chefdash')
+        
+        // window.location.reload();
 
     })
     .catch(err => console.log(err))

@@ -22,9 +22,9 @@ const UserDash = props => {
             
      
                         
-           {recipes.map(item => (
+           {recipes.map((item, index) => (
               
-               <Link key={item.id} to={`/recipes/${item.id}`} >{item.recipe_name}
+               <Link key={index} to={`/recipes/${item.id}`} >{item.recipe_name}
                  
                </Link>   
          
