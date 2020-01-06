@@ -1,14 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import UserDash from './components/UserDash'
 import PrivateRoute from './utils/PrivateRoute'
-import {Route, Link} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import{Login} from './components/Login'
 import {axiosWithAuth} from './utils/axiosWithAuth'
 import ChefDash from './components/ChefDash'
 import {AuthContext} from'./Contexts/AuthContext' 
 import Signup from './components/Signup'
-import Logout from './components/Logout'
+
 import EditRecipe from './components/EditRecipe';
 import { RecipeCard } from './components/RecipeCard';
 import AddRecipe from './components/AddRecipe'
@@ -21,7 +21,7 @@ function App() {
  
 
 const [recipe, setRecipe]= useState()
-const [recipes, setRecipes] = useState([])
+const [setRecipes] = useState([])
 
 
 
@@ -82,7 +82,7 @@ const deleteRecipe = id => {
         <AuthContext.Provider value={{recipeEdit, addRecipe, deleteRecipe, editinfo, recipe, cancelItem }}>
            
            
-           {/* <UserDash/> */}
+           
            
            
 

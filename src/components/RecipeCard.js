@@ -2,17 +2,14 @@ import React, { useContext, useEffect } from "react";
 import {AuthContext} from'../Contexts/AuthContext'
 import {EditContext} from'../Contexts/EditContext' 
 import { Link } from 'react-router-dom';
-import ChefDash from "./UserDash";
 
-import UserDash from "./UserDash";
-import EditRecipe from "./EditRecipe";
 
 
 
 export const RecipeCard = props => {
    
     
-    const {deleteRecipe, editinfo, recipe, recipes, cancelItem,  } = useContext(AuthContext)
+    const {deleteRecipe, editinfo, recipe, cancelItem  } = useContext(AuthContext)
     
  useEffect (() => {
     editinfo(props.match.params.id)

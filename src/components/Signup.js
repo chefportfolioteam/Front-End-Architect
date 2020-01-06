@@ -6,12 +6,14 @@ import axios from "axios";
 
 
 
+
 // start of Component
 
 const Signup = props => {
   const { register, errors } = useForm();
   const onSubmit = data => console.log(data);
   console.log(errors);
+ 
   const [newUser, setNewUser] = useState({
     firstname: "",
     lastname: "",
@@ -47,7 +49,9 @@ const Signup = props => {
       .catch(error => console.log(error));
       
   };
-
+  const cancelSignup = () => {
+    window.history.back();
+  };
   return (
     
 
@@ -144,8 +148,9 @@ const Signup = props => {
           />
           <br/>        
           <button>Submit</button>
-          <button onClick={props.cancelItem} >Cancel</button>
+         
         </form>
+        <button onClick={cancelSignup} >Cancel</button>
       </div>
     
   );
