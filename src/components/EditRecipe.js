@@ -1,6 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import {AuthContext} from'../Contexts/AuthContext'
-import {EditContext} from'../Contexts/EditContext' 
+ 
 //edit
 export const EditRecipe = props => {
 
