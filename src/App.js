@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import UserDash from './components/UserDash'
 import PrivateRoute from './utils/PrivateRoute'
@@ -8,9 +8,9 @@ import {axiosWithAuth} from './utils/axiosWithAuth'
 import ChefDash from './components/ChefDash'
 import {AuthContext} from'./Contexts/AuthContext' 
 import Signup from './components/Signup'
-
+import axios from 'axios'
 import EditRecipe from './components/EditRecipe';
-import { RecipeCard } from './components/RecipeCard';
+import  RecipeCard  from './components/RecipeCard';
 import AddRecipe from './components/AddRecipe'
 
 
@@ -21,16 +21,19 @@ function App() {
  
 
 const [recipe, setRecipe]= useState()
-const [setRecipes] = useState([])
+const [recipes, setRecipes] = useState([])
 
+  
+    
+  
 
 
   const recipeEdit = (recipe, id) => {
     console.log(recipe);
     axiosWithAuth()
-    .put(`/auth/user/recipes/${id}`, recipe)
+    .put(`/auth/user/recipes/${id}`, recipe )
     .then(res => {
-        setRecipes(res.data)
+        // setRecipes(res.data)
     })
     .catch(err => {
         console.log(err)
@@ -41,11 +44,13 @@ const [setRecipes] = useState([])
 //post request to add post newPost
 
 const addRecipe = (newRecipe) => {
+  console.log(newRecipe)
     axiosWithAuth()
     .post(`/auth/user/${localStorage.getItem('userId')}`, newRecipe )
     .then(res => {
       console.log(res)
         setRecipes(res.data)
+
     })
     .catch(err => {
         console.log(err)
@@ -75,41 +80,28 @@ const deleteRecipe = id => {
   const cancelItem = () => {
     window.history.back();
   };
-
+  console.log('app recipe', recipe)
   return (
     
       <div className="App">
-        <AuthContext.Provider value={{recipeEdit, addRecipe, deleteRecipe, editinfo, recipe, cancelItem }}>
-           
-           
-           
-           
-           
-
+        <AuthContext.Provider value={{recipeEdit, addRecipe, deleteRecipe, editinfo, recipe, cancelItem, recipes }}>
+                  
            <Route exact path='/' component={UserDash}/>
-
-               
-
+                              
+          <PrivateRoute exact path='/chefdash' component={ChefDash}/>
                 
-                <PrivateRoute>
-                <Route exact path='/chefdash' component={ChefDash}/>
-                <Route path ='/create' render={props => 
-                <AddRecipe {...props} />}/>
-
-                </PrivateRoute>
-                <Route exact path='/login' component={Login}/> 
-                <Route exact path='/signup' component={Signup}/>
-                
-                {/* <Route exact path = '/edit-recipe/:id' component ={EditRecipe}/> */}
-                
-                <Route path="/edit-recipe/:id" render={props => 
-                         <EditRecipe {...props} recipe={recipe} />}/>
-               
-                {/* <Route exact path = '/recipes/:id' component={RecipeCard}/> */}
-                
-                
-                <Route path="/recipes/:id" render={props => 
-                         <RecipeCard {...props} />}/>
+          <Route exact path='/login' component={Login}/>
+                               
+          <Route path ='/create' render={props => 
+            <AddRecipe {...props} />}/>
+                                                                     
+          <Route exact path='/signup' component={Signup}/>
+                                                
+          <Route path="/edit-recipe/:id" render={props => 
+            <EditRecipe {...props} recipe={recipe} />}/>
+                                                          
+          <Route  path="/recipes/:id" render={props => 
+            <RecipeCard {...props} recipe={recipe} recipes={recipes} />}/>
             
         </AuthContext.Provider>
       </div>

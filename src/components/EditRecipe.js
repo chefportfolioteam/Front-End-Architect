@@ -1,16 +1,18 @@
 import React, { useState, useContext } from "react";
 import {AuthContext} from'../Contexts/AuthContext'
- 
+import ControlledOpenSelect from './MealType'
 //edit
 export const EditRecipe = props => {
+    const [mealType, setMealType] = useState('');
 
-    const {recipeEdit} = useContext(AuthContext);
-    const {recipe} = useContext(AuthContext)
-
+    const {recipeEdit, recipe} = useContext(AuthContext);
+    
     const [editRecipe, setEditRecipes] = useState({
         recipe_name: recipe.recipe_name,
+        mealtype: recipe.mealType,
         ingredients: recipe.ingredients,
         instructions: recipe.instructions
+
       });
 console.log(props)
 
@@ -28,8 +30,10 @@ console.log(props)
       const handleSubmit = e => {
         e.preventDefault();
         recipeEdit(editRecipe, props.match.params.id);
+        
         setEditRecipes({
           recipe_name: "",
+          mealtype: 'mealType',
           ingredients: "",
           instructions: ""
         });
@@ -50,6 +54,7 @@ console.log(props)
             placeholder="Recipe Name"
             value ={editRecipe.recipe_name} />
             <br/>
+            <ControlledOpenSelect setMealType={setMealType} mealType={mealType} />
             <textarea 
             onChange={handleChange} 
             name="ingredients"

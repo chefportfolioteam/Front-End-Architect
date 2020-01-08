@@ -146,7 +146,7 @@ const Signup = props => {
             
           />
           <br/>        
-          <button>Submit</button>
+          <button type='submit'>Submit</button>
          
         </form>
         <button onClick={cancelSignup} >Cancel</button>
