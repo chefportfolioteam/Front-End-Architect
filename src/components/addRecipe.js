@@ -38,6 +38,8 @@ const AddRecipe = props => {
                placeholder="Description" />
         <br/>
         <button>Add Recipe</button>
+
+        {/* possibly add a delect function here */}
       </form>
     </div>
   );
