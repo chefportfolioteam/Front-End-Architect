@@ -37,9 +37,7 @@ import { Link } from "react-router-dom";
             <Link  to={`/recipes/${item.id}`}>{item.recipe_name}{item.meal}</Link> 
                      
            ))}
-                <Link to='/create'>
-                    Create Recipe
-                </Link>
+                <Link to='/create'>Create Recipe</Link>
 
                <Logout />
                 
