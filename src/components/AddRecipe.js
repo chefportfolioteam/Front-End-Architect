@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import {AuthContext} from'../Contexts/AuthContext'
+import { withRouter } from 'react-router-dom'
 
 const AddRecipe = props => {
   const [newRecipe, setNewRecipes] = useState({
@@ -43,4 +44,4 @@ const AddRecipe = props => {
   );
 };
 
-export default AddRecipe;
+export default withRouter(AddRecipe);

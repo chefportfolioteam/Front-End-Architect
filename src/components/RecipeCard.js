@@ -1,24 +1,19 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import {AuthContext} from'../Contexts/AuthContext'
-import {axiosWithAuth} from '../utils/axiosWithAuth'
 import {EditContext} from'../Contexts/EditContext' 
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import EditRecipe from './EditRecipe'
+import { Link } from 'react-router-dom';
+
+
+
 
 export const RecipeCard = props => {
-
-    
-
-    console.log(props)
-
    
-
-
-    const {deleteRecipe, editinfo, recipe} = useContext(AuthContext)
-
+    
+    const {deleteRecipe, editinfo, recipe, cancelItem  } = useContext(AuthContext)
+    
  useEffect (() => {
     editinfo(props.match.params.id)
- },[])
+ }, [])
     
 if(!recipe){
     return(
@@ -31,28 +26,30 @@ if(!recipe){
 
         
         <div>
-            <EditContext.Provider value={{recipe}}>
+            <EditContext.Provider value={{recipe}} >
             <div>
+            
                 <span>{recipe.recipe_name}</span>
                 <p>{recipe.ingredients}</p>
                 <p>{recipe.instructions}</p>
+                <button onClick={cancelItem} >Cancel</button>
             </div>
-           
 
-            
+               {localStorage.getItem('token') &&
+                
                 <Link to={`/edit-recipe/${props.match.params.id}`}>Update</Link>
-            
-                {/* <Route exact path = '/edit-recipe/:id' component ={EditRecipe}/> */}
-
+             
+                }
+                {localStorage.getItem('token') &&
+                <button onClick={e => {deleteRecipe(props.match.params.id);
                
-
-            <button onClick={e => {deleteRecipe (props.match.params.id); props.history.push('/chefdash')} }>
+                props.history.push('/chefdash');
+                                                              
+            }}>
                 Delete
             </button>
-
-            
- 
-            {/*Delete Button and OnClick to take us to the editRecipe */}
+            }
+        
             </EditContext.Provider>
         </div>
     )

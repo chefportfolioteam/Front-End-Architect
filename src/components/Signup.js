@@ -1,7 +1,53 @@
 import React, { useState } from "react";
+import styled from 'styled-components'
 import axios from "axios";
 
 
+const Back = styled.div `
+
+background: #00ADB5;
+
+
+
+`
+
+const Login = styled.form`
+
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-top: 20px;
+color: white;
+background: black;
+width: 200px;
+height: 390px;
+border-radius: 10px;
+padding: 30px;
+font-family: 'Spicy Rice', cursive;
+`
+
+const Middle= styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 30px;
+
+
+`
+
+const Submit = styled.button`
+
+background: #00ADB5;
+color:white;
+
+`
+const Header=styled.div`
+background:black
+display:flex;
+margin: 0 0 0 0;
+color:white;
+
+`
 
 
 
@@ -9,6 +55,8 @@ import axios from "axios";
 
 const Signup = props => {
   
+  
+ 
   const [newUser, setNewUser] = useState({
     firstname: "",
     lastname: "",
@@ -23,6 +71,8 @@ const Signup = props => {
              
   });
 
+  
+
   const handleChange = e => { 
     setNewUser({
         ...newUser,
@@ -30,32 +80,48 @@ const Signup = props => {
     })
   };
 
-  const handleSubmit = e => {
-    
-    e.preventDefault();
-
+  const handleSubmit = e => {    
+   e.preventDefault()
     axios
       .post('https://chefportfolio10.herokuapp.com/api/auth/register', newUser)     
       .then(res => {
         console.log("registration res", res)
         props.history.push('/login')
       }, [])
+      
       .catch(error => console.log(error));
+      
   };
-
+  const cancelSignup = () => {
+    window.history.back();
+  };
   return (
     
 
-      <div className="signup">
-        <form onSubmit={handleSubmit} noValidate>
+      <Back>
+        <Header>
+        
+          <img class="logo" src="http://josefetheridge.com/marketing-page/img/Blk_Bkgrd_Nav1.png" alt="Company logo"/>
+        
+                  <div class="main-nav">
+                      <p>Home</p>
+                      <p>About</p>
+                      <p>Contact</p>
+                      <p><a href="https://front-end-architect-fuh3xh1sq.now.sh/">Login</a></p>
+                  </div>
+        </Header>
+        <Middle>
+        <Login onSubmit={handleSubmit} >
        
         <h3>Sign-Up</h3>
+      
           <input
             name="firstname"
             placeholder="First Name"
             onChange={handleChange}
             value={newUser.firstname}
             type="text"
+           
           />        
           <input
             name="lastname"
@@ -63,6 +129,7 @@ const Signup = props => {
             onChange={handleChange}
             value={newUser.lastname}
             type="text"
+            
           />
           <br/>
           <input
@@ -70,7 +137,8 @@ const Signup = props => {
             placeholder="Username"
             onChange={handleChange}
             value={newUser.username}
-            type="text"         
+            type="text"
+                     
           /> 
                
           <input
@@ -79,6 +147,7 @@ const Signup = props => {
             onChange={handleChange}
             value={newUser.password}
             type="password"
+            
           />
            
           <br/>
@@ -88,7 +157,7 @@ const Signup = props => {
             onChange={handleChange}
             value={newUser.email}
             type="email"
-          
+            
           />
            
           <input
@@ -96,7 +165,8 @@ const Signup = props => {
             placeholder="Phone"
             onChange={handleChange}
             value={newUser.phone}
-            type="phone"
+            type="tel"
+            
           />
           <br/>
           <input
@@ -105,6 +175,7 @@ const Signup = props => {
             onChange={handleChange}
             value={newUser.address}
             type="text"
+            
           />
           <input
             name="state"
@@ -112,6 +183,7 @@ const Signup = props => {
             onChange={handleChange}
             value={newUser.state}
             type="text"
+            
           />
           <input
             name="city"
@@ -119,6 +191,7 @@ const Signup = props => {
             onChange={handleChange}
             value={newUser.city}
             type="text"
+            
           />          
           <br/>        
           <input
@@ -127,11 +200,14 @@ const Signup = props => {
             onChange={handleChange}
             value={newUser.zipcode}
             type="text"
+            
           />
           <br/>        
-          <button>Submit</button>
-        </form>
-      </div>
+          <Submit>Submit</Submit>
+         
+        </Login>
+        </Middle>
+      </Back>
     
   );
 };

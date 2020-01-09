@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios'
-import { RecipeCard } from './RecipeCard';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
+import { Link } from 'react-router-dom';
+
 
 
 
@@ -20,14 +21,17 @@ const UserDash = props => {
     return (
         <div>
             
-     
+           
                         
-           {recipes.map(item => (
-               <Link to={`/recipes/${item.id}`}>{item.recipe_name}</Link>   
+           {recipes.map((item, index) => (
+              
+               <Link key={index} to={`/recipes/${item.id}`} >{item.recipe_name}
+                 
+               </Link>   
          
            ))}
 
-{localStorage.getItem('token')? null :
+                {localStorage.getItem('token')? null :
                 <nav>
                 <Link to='/login'>Log In</Link>
                 <Link to='/signup'>Sign Up</Link>
@@ -37,6 +41,6 @@ const UserDash = props => {
 
         </div>
         )
-    
+       
 }
 export default UserDash;
