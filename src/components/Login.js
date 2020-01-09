@@ -1,6 +1,55 @@
 import React, {useState, useContext } from 'react';
 import {axiosWithAuth} from '../utils/axiosWithAuth'
 import {AuthContext} from'../Contexts/AuthContext'
+import styled from 'styled-components'
+
+
+
+const Back = styled.div `
+
+background: #00ADB5;
+width:100%;
+height:100%;
+
+`
+
+const Movin = styled.form`
+
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-top: 20px;
+color: white;
+background: black;
+width: 200px;
+height: 150px;
+border-radius: 10px;
+padding: 30px;
+font-family: 'Spicy Rice', cursive;
+`
+
+const Middle= styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 30px;
+
+
+`
+
+const Submit = styled.button`
+
+background: #00ADB5;
+color:white;
+
+`
+const Header=styled.div`
+background:black
+display:flex;
+margin: 0 0 0 0;
+color:white;
+
+`
 
 export const Login = props => {
     const {cancelItem} = useContext(AuthContext)
@@ -40,12 +89,24 @@ const handleSubmit = e => {
 
 
     return(
-        <div>
+        <Back>
             {/* {!props.Login && !props.loading && <p>Loading...</p>} */}
             {/* {props.loading && (
         <Loader type="Puff" color="#00BFFF" height={100} width={100} />
       )} */}
-            <form onSubmit={handleSubmit}>
+       <Header>
+        
+        <img class="logo" src="http://josefetheridge.com/marketing-page/img/Blk_Bkgrd_Nav1.png" alt="Company logo"/>
+      
+                <div class="main-nav">
+                    <p>Home</p>
+                    <p>About</p>
+                    <p>Contact</p>
+                    <p><a href="https://front-end-architect-fuh3xh1sq.now.sh/">Login</a></p>
+                </div>
+      </Header>
+      <Middle>
+            <Movin onSubmit={handleSubmit}>
                 <input
                     type='text'
                     name='username'
@@ -62,10 +123,10 @@ const handleSubmit = e => {
                         placeholder='Password'
                     />
                     <br/>
-                    <button type='submit' >Log In</button>
-                    <button onClick={cancelItem} >Cancel</button>
-            </form>
-        </div>
+                    <Submit type='submit' >Log In</Submit>
+            </Movin>
+            </Middle>
+        </Back>
     )
     
 }
