@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {axiosWithAuth} from '../utils/axiosWithAuth'
 import Logout from './Logout'
 import { Link } from "react-router-dom";
+import pictures from '../images'
 
 
 
@@ -34,7 +35,7 @@ import { Link } from "react-router-dom";
           
             {recipes.map(item => (
             
-            <Link  to={`/recipes/${item.id}`}>{item.recipe_name}{item.meal}</Link> 
+            <Link  to={`/recipes/${item.id}`}>{item.mealtype}<br/>{<img src={pictures[item.id]}alt='food'/>}<br/>{item.recipe_name}<br/></Link> 
                      
            ))}
                 <Link to='/create'>Create Recipe</Link>
