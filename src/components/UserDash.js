@@ -2,80 +2,95 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { Link } from "react-router-dom";
-import SearchRecipe from "./SearchRecipe";
+import SearchRecipes from "./SearchRecipe";
 import pictures from "../images";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-//import Button from "@material-ui/core/Button";
+
 import Typography from "@material-ui/core/Typography";
+import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles({
   card: {
-    margin: 50,
+    margin: 100,
     justifyContent: "center",
     flexDirection: "row",
     alignItems: "center",
-    maxWidth: 100,
-    minWidth: 275,
+    minWidth: 800,
     backgroundColor: "primary"
   },
 
-  // bullet: {
-  //   display: "inline-block",
-  //   margin: "0 2px",
-  //   transform: "scale(0.8)"
-  // },
   title: {
     fontSize: 30
   },
   pos: {
     marginBottom: 120
-  }
-});
+  },
+  paper: {
+    padding: "2vw",
+    textAlign: "center",
+    color: "#000000",
+    whiteSpace: "nowrap",
+    background: "#A0DB9E",
+    marginTop: "2vh",
+    marginBottom: "2vh"
+}});
+
 
 const UserDash = props => {
   const [recipes, setRecipes] = useState([]);
-  const [searchRecipies, setSearchRecipies] = useState([]);
+  const [searchRecipes, setSearchRecipes] = useState([]);
   useEffect(() => {
     axios
       .get("https://chefportfolio10.herokuapp.com/api/recipes")
-      .then(res => setRecipes(res.data))
+      .then(res => {
+        setRecipes(res.data);
+        setSearchRecipes(res.data);
+      })
       .catch(err => console.log(err.res));
   }, []);
 
   return (
-    <div>
-      <Card className={useStyles.card} variant="outlined">
-        <CardContent>
-          <Typography
-            className={useStyles.title}
-            color="textSecondary"
-            gutterBottom
-          >
-            {/* <span>{recipe.recipe_name}</span> */}
-          </Typography>
-          <Typography variant="h5" component="h2">
-            {/* <p>{recipe.ingredients}</p> */}
-          </Typography>
-          <Typography className={useStyles.pos} color="textSecondary">
-            {/* <p>{recipe.instructions}</p> */}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          {searchRecipes.map((item, index) => (
-            <Link key={index} to={`/recipes/${item.id}`}>
-              {item.mealtype}
-              <br />
-              {<img src={pictures[item.id]} alt="food" />}
-              <br />
-              {item.recipe_name}
-              <br />
-            </Link>
-          ))}
-        </CardActions>
-      </Card>
+    <Grid >
+      <CardActions>
+      
+        
+        {searchRecipes.map((item, index) => (
+          <Card>
+            
+              <Link key={index} to={`/recipes/${item.id}`}>
+                <br />
+                {<img src={pictures[item.id]} alt="food" />}
+                <br />
+
+                <br />
+              </Link>
+            
+
+            <Typography
+              className={useStyles.title}
+              color="textSecondary"
+              gutterBottom
+            ></Typography>
+
+            <Typography
+              className={useStyles.pos}
+              color="textSecondary"
+              variant="h4"
+            >
+              <span> {item.recipe_name}</span>
+            </Typography>
+            <Typography variant="h5" component="h2">
+              <span> {item.mealtype}</span>
+            </Typography>
+            
+          </Card>
+          
+        ))}
+        
+         
+      </CardActions>
 
       {localStorage.getItem("token") ? null : (
         <nav>
@@ -83,7 +98,7 @@ const UserDash = props => {
           <Link to="/signup">Sign Up</Link>
         </nav>
       )}
-    </div>
+    </Grid>
   );
 };
 export default UserDash;

@@ -1,6 +1,5 @@
 import React from "react";
 const SearchRecipe = props => {
-  
   const handleChange = event => {
     const result = props.recipes.filter(recipe =>
       recipe.recipe_name

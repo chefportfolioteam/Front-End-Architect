@@ -3,17 +3,8 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import Logout from "./Logout";
 import { Link } from "react-router-dom";
 
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-//import Button from '@material-ui/core/Button';
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-
-
 
 const ChefDash = props => {
-    
   const [recipes, setRecipes] = useState([]);
   //get posts from api server using axioswithAuth
   useEffect(() => {
@@ -28,26 +19,15 @@ const ChefDash = props => {
 
   return (
     <div>
-      {/* //Lisa added material ui */}
-      <AppBar position="static" color="">
-        <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h2">Chef Dashboard</Typography>
-
-          {/* <Button color="inherit" align="right"> <Logout /></Button> */}
-        </Toolbar>
-      </AppBar>
-      {/* //END-Lisa added material ui */}
-
+     
+      <h1>Chef Dashboard</h1>
       <h1>Recipes</h1>
 
       {recipes.map(item => (
         <Link to={`/recipes/${item.id}`}>{item.recipe_name}</Link>
       ))}
       <Link to="/create">Create Recipe</Link>
-
+<br/>
       <Logout />
     </div>
     //Have an Add Button and this button

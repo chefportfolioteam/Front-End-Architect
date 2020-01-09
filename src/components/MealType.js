@@ -1,27 +1,26 @@
 //Lisa Test 6
 import React, { useState } from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import { makeStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 // import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
   button: {
-    display: 'block',
-    marginTop: theme.spacing(2),
-    
+    display: "block",
+    marginTop: theme.spacing(2)
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
-  },
+    minWidth: 120
+  }
 }));
 
 export default function ControlledOpenSelect(props) {
   const classes = useStyles();
-  
+
   const [open, setOpen] = useState(false);
 
   const handleChange = event => {
@@ -42,7 +41,9 @@ export default function ControlledOpenSelect(props) {
         Open the select
       </Button> */}
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label">Meal Type</InputLabel>
+        <InputLabel id="demo-controlled-open-select-label">
+          Meal Type
+        </InputLabel>
         <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
