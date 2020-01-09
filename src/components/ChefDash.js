@@ -33,19 +33,17 @@ import pictures from '../images'
             
           
           
-            {recipes.map(item => (
+            {recipes.map((item, index) => (
             
-            <Link  to={`/recipes/${item.id}`}>{item.mealtype}<br/>{<img src={pictures[item.id]}alt='food'/>}<br/>{item.recipe_name}<br/></Link> 
-                     
+            <Link key={index.id} to={`/recipes/${item.id}`}>{item.mealtype}<br/>{<img src={pictures[index]}alt='food'/>}<br/>{item.recipe_name}<br/></Link> 
+                   
            ))}
                 <Link to='/create'>Create Recipe</Link>
 
                <Logout />
                 
         </div>
-        //Have an Add Button and this button
-        //will take us to the Add Recipe Form
-        //Put an onClick inside the div
+        
     )
 }
 export default ChefDash;

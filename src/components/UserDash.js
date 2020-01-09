@@ -48,7 +48,7 @@ const UserDash = props => {
                
                
                
-               <Link key={index} to={`/recipes/${item.id}`} >{item.mealtype}<br/>{<img src={pictures[item.id]}alt='food'/>}<br/>{item.recipe_name}<br/>
+               <Link key={index} to={`/recipes/${item.id}`} >{item.mealtype}<br/>{<img src={pictures[index]}alt='food'/>}<br/>{item.recipe_name}<br/>
                  
                </Link> 
                          

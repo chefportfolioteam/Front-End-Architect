@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import {AuthContext} from'../Contexts/AuthContext'
 import {EditContext} from'../Contexts/EditContext' 
 import { Link } from 'react-router-dom';
-// import {pictures} from '../images'
+
 
 
 
@@ -30,11 +30,12 @@ console.log(props)
         <div>
             <EditContext.Provider value={{recipe}} >
             <div>
-            {/* <img src={pictures[props.id]} alt=''/> */}
+           
                 <span>{recipe.recipe_name}</span>
                 <div>{recipe.mealtype} </div>
                 <p>{recipe.ingredients}</p>
                 <p>{recipe.instructions}</p>
+
                 <button onClick={cancelItem} >Cancel</button>
             </div>
 
