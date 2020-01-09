@@ -27,6 +27,7 @@ const AddRecipe = props => {
 
   return (
     <div className="add-recipe">
+      
       <form onSubmit={handleSubmit}>
         <h3> Recipe Name</h3>
         <input onChange={handleChange} name="recipe_name" placeholder="Recipe Name" />
