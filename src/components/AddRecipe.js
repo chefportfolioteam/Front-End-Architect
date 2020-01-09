@@ -3,6 +3,7 @@ import {AuthContext} from'../Contexts/AuthContext'
 import { withRouter } from 'react-router-dom'
 import ControlledOpenSelect from './MealType'
 
+
 const AddRecipe = props => {
   const [mealType, setMealType] = useState('');
   const [newRecipe, setNewRecipes] = useState({
@@ -32,6 +33,7 @@ const AddRecipe = props => {
   return (
     <div className="add-recipe">
       <form onSubmit={handleSubmit}>
+        {/* <ImageUpload/> */}
         <h3> Recipe Name</h3>
         <input onChange={handleChange} name="recipe_name" placeholder="Recipe Name" />
         <br/>

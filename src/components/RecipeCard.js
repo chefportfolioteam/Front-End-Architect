@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import {AuthContext} from'../Contexts/AuthContext'
 import {EditContext} from'../Contexts/EditContext' 
 import { Link } from 'react-router-dom';
-import {pictures} from '../images'
+// import {pictures} from '../images'
 
 
 
@@ -10,7 +10,7 @@ import {pictures} from '../images'
 
  const RecipeCard = props => {
    
-    
+    console.log("recipecard", props)
     const {deleteRecipe, editinfo, recipe, cancelItem  } = useContext(AuthContext)
     
     useEffect (() => {
@@ -23,7 +23,7 @@ import {pictures} from '../images'
     )
     
 }
-console.log('recipecard',props.id)
+console.log(props)
     return (
 
         

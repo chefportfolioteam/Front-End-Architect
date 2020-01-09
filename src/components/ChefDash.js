@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {axiosWithAuth} from '../utils/axiosWithAuth'
 import Logout from './Logout'
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 

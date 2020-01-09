@@ -1,17 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import UserDash from './components/UserDash'
 import PrivateRoute from './utils/PrivateRoute'
 import {Route} from 'react-router-dom';
-import{Login} from './components/Login'
+import {Login} from './components/Login'
 import {axiosWithAuth} from './utils/axiosWithAuth'
 import ChefDash from './components/ChefDash'
 import {AuthContext} from'./Contexts/AuthContext' 
 import Signup from './components/Signup'
-import axios from 'axios'
 import EditRecipe from './components/EditRecipe';
-import  RecipeCard  from './components/RecipeCard';
+import RecipeCard  from './components/RecipeCard';
 import AddRecipe from './components/AddRecipe'
+
 
 
 
@@ -21,7 +21,7 @@ function App() {
  
 
 const [recipe, setRecipe]= useState()
-const [recipes, setRecipes] = useState([])
+const [setRecipes] = useState([])
 
   
     
@@ -80,11 +80,11 @@ const deleteRecipe = id => {
   const cancelItem = () => {
     window.history.back();
   };
-  console.log('app recipe', recipe)
+  
   return (
     
       <div className="App">
-        <AuthContext.Provider value={{recipeEdit, addRecipe, deleteRecipe, editinfo, recipe, cancelItem, recipes }}>
+        <AuthContext.Provider value={{recipeEdit, addRecipe, deleteRecipe, editinfo, recipe, cancelItem }}>
                   
            <Route exact path='/' component={UserDash}/>
                               
@@ -101,8 +101,9 @@ const deleteRecipe = id => {
             <EditRecipe {...props} recipe={recipe} />}/>
                                                           
           <Route  path="/recipes/:id" render={props => 
-            <RecipeCard {...props} recipe={recipe} recipes={recipes} />}/>
-            
+            <RecipeCard {...props}  />}/>
+
+          
         </AuthContext.Provider>
       </div>
        

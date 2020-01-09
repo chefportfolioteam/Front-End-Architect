@@ -1,15 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios'
-
 import { Link } from 'react-router-dom';
+import pictures from '../images'
 import SearchRecipe from './SearchRecipe';
 
 
 
 
-const UserDash = () => {
+
+const UserDash = props => {
     const [recipes, setRecipes] = useState([])
-    
+    const [searchRecipes, setSearchRecipes] = useState([])
     useEffect(() => {
         const abortController = new AbortController()
         const signal = AbortController.signal 
@@ -17,6 +18,7 @@ const UserDash = () => {
         .get('https://chefportfolio10.herokuapp.com/api/recipes', { signal: signal })
         .then(res => {
             setRecipes(res.data)
+            setSearchRecipes(res.data)
             console.log(res.data)
         })
         .catch(err => console.log(err.res))
@@ -24,28 +26,36 @@ const UserDash = () => {
             abortController.abort()
         }
     }, [])
-    
-console.log(recipes)   
-    
+   
+  
     return (
         <div>
             
-           
-            <SearchRecipe  />           
-           {recipes.map((item, index) => (
-              
-               <Link key={index} to={`/recipes/${item.id}`} >{item.recipe_name}{item.mealtype}
-                 
-               </Link>   
-         
-           ))}
+            <SearchRecipe setSearchRecipes={setSearchRecipes} recipes={recipes}/>
 
-                {localStorage.getItem('token')? null :
+
+            {localStorage.getItem('token')? null :
                 <nav>
                 <Link to='/login'>Log In</Link>
                 <Link to='/signup'>Sign Up</Link>
                 </nav>
-}
+                }
+           
+            
+            
+                      
+           {searchRecipes.map((item, index) => (
+               
+               
+               
+               <Link key={index} to={`/recipes/${item.id}`} >{item.mealtype}<br/>{<img src={pictures[3]}alt='food'/>}<br/>{item.recipe_name}<br/>
+                 
+               </Link> 
+                         
+           ))}
+
+
+                
              
 
         </div>
