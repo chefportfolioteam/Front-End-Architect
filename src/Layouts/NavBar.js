@@ -10,17 +10,11 @@ import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-// import { grey } from "@material-ui/core/colors";
-import grey from "@material-ui/core/colors/grey";
 
-
-
-const color = grey[900];
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor:color.grey
   },
   menuButton: {
     marginRight: theme.spacing(3)
@@ -56,7 +50,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "center"
   },
   inputRoot: {
-    color: "inherit"
+    color: "primary"
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 7),

@@ -13,19 +13,6 @@ import EditRecipe from "./components/EditRecipe";
 import { RecipeCard } from "./components/RecipeCard";
 import AddRecipe from "./components/AddRecipe";
 import NavBar from "./Layouts/NavBar";
-import { createMuiTheme } from '@material-ui/core/styles';
-import grey from '@material-ui/core/colors/grey';
-
-
-const color = grey[900];
-
-
-const theme = createMuiTheme({
-  palette: {
-    primary:grey,
-  },
-});
-
 
 function App() {
   //setting state for recipe
