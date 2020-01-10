@@ -18,14 +18,14 @@ console.log(props)
 
     
 
-    console.log(recipe)
+  console.log(recipe);
 
-    const handleChange = e => {
-        setEditRecipes({
-          ...editRecipe,
-          [e.target.name]: e.target.value
-        });
-      };
+  const handleChange = e => {
+    setEditRecipes({
+      ...editRecipe,
+      [e.target.name]: e.target.value
+    });
+  };
 
       const handleSubmit = e => {
         e.preventDefault();
@@ -40,11 +40,9 @@ console.log(props)
         props.history.push('/chefdash')
       };
 
-
-    return (
-<div>
-            
-            {/* <div><span>{props.recipe_name}</span></div>
+  return (
+    <div>
+      {/* <div><span>{props.recipe_name}</span></div>
             <img src={pictures[props.id]} alt=''/> */}
 
         <form onSubmit={handleSubmit}>
@@ -71,9 +69,8 @@ console.log(props)
             <button>Update Recipe</button>
             
       </form>
+    </div>
+  );
+};
 
-</div>
-    )
-}
-
-export default EditRecipe
+export default EditRecipe;

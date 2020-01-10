@@ -19,14 +19,9 @@ import AddRecipe from './components/AddRecipe'
 function App() {
   //setting state for recipe
  
-
-const [recipe, setRecipe]= useState()
-const [setRecipes] = useState([])
-
   
-    
-  
-
+  const [recipe, setRecipe] = useState();
+  const [setRecipes] = useState([]);
 
   const recipeEdit = (recipe, id) => {
     console.log(recipe);
@@ -57,7 +52,7 @@ const addRecipe = (newRecipe) => {
     })
 }
 
-const deleteRecipe = id => {
+  const deleteRecipe = id => {
     axiosWithAuth()
       .delete(`/auth/user/recipes/${id}`)
       .then(res => {
@@ -82,8 +77,9 @@ const deleteRecipe = id => {
   };
   
   return (
-    
+     
       <div className="App">
+         
         <AuthContext.Provider value={{recipeEdit, addRecipe, deleteRecipe, editinfo, recipe, cancelItem }}>
                   
            <Route exact path='/' component={UserDash}/>

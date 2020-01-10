@@ -49,51 +49,37 @@ display:flex;
 margin: 0 0 0 0;
 color:white;
 
-`
+`;
 
 export const Login = props => {
-    const {cancelItem} = useContext(AuthContext)
-    const [data, setData] = useState({
-        username: '',
-        password: '',
-        
-    })
+  const { cancelItem } = useContext(AuthContext);
+  const [data, setData] = useState({
+    username: "",
+    password: ""
+  });
 
-
-const handleChange = e => {
+  const handleChange = e => {
     setData({
-        ...data,
-        [e.target.name]: e.target.value
-    })
-}
+      ...data,
+      [e.target.name]: e.target.value
+    });
+  };
 
-
-
-const handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-   
     axiosWithAuth()
-    .post('/auth/login', data)
-    .then(res => {
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('userId', res.data.user.id)
-        // console.log(data)   
-        props.history.push('/chefdash')
-        
-        // window.location.reload();
-
-    })
-    .catch(err => console.log(err))
-   }
-  
-
-
+      .post("/auth/login", data)
+      .then(res => {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("userId", res.data.user.id);
+        // console.log(data)
+        props.history.push("/chefdash");
+      })
+      .catch(err => console.log(err));
+  }  
     return(
         <Back>
-            {/* {!props.Login && !props.loading && <p>Loading...</p>} */}
-            {/* {props.loading && (
-        <Loader type="Puff" color="#00BFFF" height={100} width={100} />
-      )} */}
+          
        <Header>
         
         <img class="logo" src="http://josefetheridge.com/marketing-page/img/Blk_Bkgrd_Nav1.png" alt="Company logo"/>

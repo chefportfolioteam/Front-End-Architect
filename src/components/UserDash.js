@@ -3,9 +3,37 @@ import axios from 'axios'
 import { Link } from 'react-router-dom';
 import pictures from '../images'
 import SearchRecipe from './SearchRecipe';
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import Typography from "@material-ui/core/Typography";
+import { Grid } from "@material-ui/core";
 
+const useStyles = makeStyles({
+  card: {
+    margin: 100,
+    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    minWidth: 800,
+    backgroundColor: "primary"
+  },
 
-
+  title: {
+    fontSize: 30
+  },
+  pos: {
+    marginBottom: 120
+  },
+  paper: {
+    padding: "2vw",
+    textAlign: "center",
+    color: "#000000",
+    whiteSpace: "nowrap",
+    background: "#A0DB9E",
+    marginTop: "2vh",
+    marginBottom: "2vh"
+}});
 
 
 const UserDash = props => {
@@ -29,7 +57,7 @@ const UserDash = props => {
    
   
     return (
-        <div>
+        <>
             
             <SearchRecipe setSearchRecipes={setSearchRecipes} recipes={recipes}/>
 
@@ -40,26 +68,55 @@ const UserDash = props => {
                 <Link to='/signup'>Sign Up</Link>
                 </nav>
                 }
-           
-            
-            
-                      
-           {searchRecipes.map((item, index) => (
-               
-               
-               
-               <Link key={index.id} to={`/recipes/${item.id}`} >{item.mealtype}<br/>{<img src={pictures[index]}alt='food'/>}<br/>{item.recipe_name}<br/>
-                 
-               </Link> 
-                         
-           ))}
-
-
-                
              
+    <Grid >
+      <CardActions>
+      
+        
+        {searchRecipes.map((item, index) => (
+          <Card>
+            
+              <Link key={index} to={`/recipes/${item.id}`}>
+                <br />
+                {<img src={pictures[index]} alt="food" />}
+                <br />
 
-        </div>
-        )
-       
-}
+                <br />
+              </Link>
+            
+
+            <Typography
+              className={useStyles.title}
+              color="textSecondary"
+              gutterBottom
+            ></Typography>
+
+            <Typography
+              className={useStyles.pos}
+              color="textSecondary"
+              variant="h4"
+            >
+              <span> {item.recipe_name}</span>
+            </Typography>
+            <Typography variant="h5" component="h2">
+              <span> {item.mealtype}</span>
+            </Typography>
+            
+          </Card>
+          
+        ))}
+        
+         
+      </CardActions>
+
+      {localStorage.getItem("token") ? null : (
+        <nav>
+          <Link to="/login">Log In</Link>
+          <Link to="/signup">Sign Up</Link>
+        </nav>
+      )}
+    </Grid>
+    </>
+  );
+};
 export default UserDash;

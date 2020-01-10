@@ -54,43 +54,36 @@ color:white;
 // start of Component
 
 const Signup = props => {
-  
-  
- 
   const [newUser, setNewUser] = useState({
     firstname: "",
     lastname: "",
     username: "",
-    password: "", 
+    password: "",
     email: "",
     phone: null,
-    address: null, 
+    address: null,
     state: null,
     city: null,
     zipcode: null
-             
   });
 
-  
-
-  const handleChange = e => { 
+  const handleChange = e => {
     setNewUser({
-        ...newUser,
+      ...newUser,
       [e.target.name]: e.target.value
-    })
+    });
   };
 
-  const handleSubmit = e => {    
-   e.preventDefault()
+  const handleSubmit = e => {
+    e.preventDefault();
     axios
-      .post('https://chefportfolio10.herokuapp.com/api/auth/register', newUser)     
+      .post("https://chefportfolio10.herokuapp.com/api/auth/register", newUser)
       .then(res => {
-        console.log("registration res", res)
-        props.history.push('/login')
+        console.log("registration res", res);
+        props.history.push("/login");
       }, [])
-      
+
       .catch(error => console.log(error));
-      
   };
   const cancelSignup = () => {
     window.history.back();

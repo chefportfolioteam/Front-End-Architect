@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  margin:100px;
 }
 
 .App-logo {
@@ -26,6 +27,7 @@
 
 .App-link {
   color: #61dafb;
+  text-decoration: none;
 }
 
 @keyframes App-logo-spin {
@@ -36,7 +38,39 @@
     transform: rotate(360deg);
   }
 }
+.MuiPaper-rounded {
+  
+  border-radius: 19px;
+  width: 400px;
+  height: 600px;
+  flex-wrap: wrap-reverse;
+  margin:20px;
+}
+.MuiCardActions-root {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 8px;
+  align-items: center;
+}
+.MuiCardContent-root {
+  padding: 16px;
+  height: 500px;
+}
 
+button{
+  margin:20px;
+  color:white;
+  border-radius: 5px;
+  
+  background-color: gray;
+}
+
+a{
+  margin:5px;
+  text-decoration: none;
+
+
+}
 .logo{
   width: 80px;
   height: 85px;
