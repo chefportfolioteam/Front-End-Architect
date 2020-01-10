@@ -28,25 +28,29 @@ const AddRecipe = props => {
     addRecipe(newRecipe)
     props.history.push('/chefdash')
   };
-
+  const cancelRecipe = () => {
+    window.history.back();
+  }
   return (
     <div className="add-recipe">
       <form onSubmit={handleSubmit}>
-        {/* <ImageUpload/> */}
-        <h3> Recipe Name</h3>
-        <input onChange={handleChange} name="recipe_name" placeholder="Recipe Name" />
+        
+        <h3> Add Recipes to Profile</h3>
+        <input className='recipe-name' onChange={handleChange} name="recipe_name" placeholder="Recipe Name" />
         <br/>
         {localStorage.getItem('token') &&
-                <ControlledOpenSelect setMealType={setMealType} mealType={mealType} />}
-        <textarea onChange={handleChange} name="ingredients"
+                <ControlledOpenSelect className='drop-down' setMealType={setMealType} mealType={mealType} />}
+      
+        <textarea className='ingredients' onChange={handleChange} name="ingredients"
         placeholder="Ingredients" 
-        type="text"/>
+        type="text"/>        
+      
         <br/>
-        <textarea onChange={handleChange} name="instructions" 
+        <textarea className='instructions' onChange={handleChange} name="instructions" 
                placeholder="Description" />
         <br/>
-        <button>Add Recipe</button>
-
+        <button className='add-button' >Add Recipe</button>
+        <button onClick={cancelRecipe} className='cancel-button' >Cancel</button>
         {/* possibly add a delect function here */}
       </form>
     </div>

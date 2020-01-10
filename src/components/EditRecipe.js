@@ -42,31 +42,32 @@ console.log(props)
 
   return (
     <div>
-      {/* <div><span>{props.recipe_name}</span></div>
-            <img src={pictures[props.id]} alt=''/> */}
-
+      
         <form onSubmit={handleSubmit}>
-            <h3> Recipe Name</h3>
-            <input onChange={handleChange} 
+            <h3> Edit Your Recipe</h3>
+            <input 
+            className='recipe-name' onChange={handleChange} 
             name="recipe_name" 
             placeholder="Recipe Name"
             value ={editRecipe.recipe_name} />
             <br/>
             <ControlledOpenSelect setMealType={setMealType} mealType={mealType} />
-            <textarea 
+            <textarea
+            className='ingredients' 
             onChange={handleChange} 
             name="ingredients"
             placeholder="Ingredients" 
             type="text"
             value={editRecipe.ingredients}/>
             <br/>
-            <textarea 
+            <textarea
+            className='instructions' 
             onChange={handleChange} 
             name="instructions" 
             placeholder="Description"
             value={editRecipe.instructions} />
             <br/>
-            <button>Update Recipe</button>
+            <button className='add-button' >Update Recipe</button>
             
       </form>
     </div>

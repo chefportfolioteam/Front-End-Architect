@@ -40,7 +40,7 @@ const ChefDash = props => {
     <>
       <h1>Chef DashBoard</h1>
       <h1>Your Recipes</h1>
-
+      <Logout />
       <Grid>
         <CardActions>
           {recipes.map((item, index) => (
@@ -63,7 +63,7 @@ const ChefDash = props => {
 
               <Link to="/create">Create Recipe</Link>
 
-              <Logout />
+              
               <Typography variant="h5" component="h2" color="textPrimary">
                 <span> {item.mealtype}</span>
               </Typography>

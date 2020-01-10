@@ -28,7 +28,7 @@ function App() {
     axiosWithAuth()
     .put(`/auth/user/recipes/${id}`, recipe )
     .then(res => {
-        // setRecipes(res.data)
+        setRecipes(res.data)
     })
     .catch(err => {
         console.log(err)
