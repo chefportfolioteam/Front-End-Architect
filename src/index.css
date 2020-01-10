@@ -65,9 +65,6 @@ nav {
   height: 3vh;
   font-size:1.4rem
 }
-.drop-down {
-  
-}
 .ingredients {
   width: 30%;
   height: 280px;
@@ -84,5 +81,12 @@ nav {
   font-size: 1rem;
   background-color: green;
 }
-
+.logo {
+  margin: 0;
+  width: 400px;
+}
+header {
+  display: flex;
+  justify-content: center;
+}
 
