@@ -49,7 +49,7 @@ const ChefDash = props => {
                 className={useStyles.title}
                 color="textPrimary"
                 component="h3"
-                variant="h7" 
+                variant="h6" 
                 gutterBottom
               >
                 <span> {item.recipe_name}</span>

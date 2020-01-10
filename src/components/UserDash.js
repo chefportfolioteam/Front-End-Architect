@@ -66,7 +66,7 @@ const UserDash = props => {
               className={useStyles.title}
               color="textPrimary"
               component="h4"
-              variant="h7"
+              variant="h6"
               gutterBottom
             >
             <span> {item.recipe_name}</span>

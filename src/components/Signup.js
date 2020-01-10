@@ -1,59 +1,51 @@
 import React, { useState } from "react";
-import styled from 'styled-components'
+import styled from "styled-components";
 import axios from "axios";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
-
-const Back = styled.div `
-
-background: #00ADB5;
-
-
-
-`
-
-const Login = styled.form`
-
-display: flex;
-flex-direction: column;
-align-items: center;
-margin-top: 20px;
-color: white;
-background: black;
-width: 200px;
-height: 390px;
-border-radius: 10px;
-padding: 30px;
-font-family: 'Spicy Rice', cursive;
-`
-
-const Middle= styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-padding: 30px;
-
-
-`
-
-const Submit = styled.button`
-
-background: #00ADB5;
-color:white;
-
-`
-const Header=styled.div`
-background:black
-display:flex;
-margin: 0 0 0 0;
-color:white;
-
-`
-
-
-
+const theme = createMuiTheme({
+  overrides: {
+    // Style sheet name :atom_symbol:
+    MuiButton: {
+      // Name of the rule
+      text: {
+        // Some CSS
+        background: "black",
+        color: "white"
+      }
+    }
+  }
+});
+const useStyles = makeStyles(theme => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+      width: 500
+    }
+  }
+  
+}));
+const Back = styled.div`
+  background: #00ADB5;
+  font-size: 1.4rem;
+`;
+const Middle = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+`;
+const Header = styled.div`
+  display: flex;
+  margin: 0 0 0 0;
+  color: white;
+`;
 // start of Component
-
 const Signup = props => {
+  const classes = useStyles();
   const [newUser, setNewUser] = useState({
     firstname: "",
     lastname: "",
@@ -66,143 +58,140 @@ const Signup = props => {
     city: null,
     zipcode: null
   });
-
   const handleChange = e => {
     setNewUser({
       ...newUser,
       [e.target.name]: e.target.value
     });
   };
-
   const handleSubmit = e => {
     e.preventDefault();
     axios
       .post("https://chefportfolio10.herokuapp.com/api/auth/register", newUser)
       .then(res => {
-        console.log("registration res", res);
+        console.log(res);
         props.history.push("/login");
       }, [])
-
       .catch(error => console.log(error));
   };
   const cancelSignup = () => {
     window.history.back();
   };
   return (
-    
-
-      <Back>
-        <Header>
-        
-          <img class="logo" src="http://josefetheridge.com/marketing-page/img/Blk_Bkgrd_Nav1.png" alt="Company logo"/>
-        
-                  <div class="main-nav">
-                      <p>Home</p>
-                      <p>About</p>
-                      <p>Contact</p>
-                      <p><a href="https://front-end-architect-fuh3xh1sq.now.sh/">Login</a></p>
-                  </div>
-        </Header>
-        <Middle>
-        <Login onSubmit={handleSubmit} >
-       
-        <h3>Sign-Up</h3>
-      
-          <input
-            name="firstname"
-            placeholder="First Name"
-            onChange={handleChange}
+    <Back>
+      {/* <header>
+        <img
+          className="logo"
+          src={require('./FoodLogo.png')}
+          alt="Company logo"
+        />
+      </header> */}
+      <Middle>
+        <h3 className="signup">Sign Up</h3>
+        <form
+          className={classes.root}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <TextField
             value={newUser.firstname}
-            type="text"
-           
-          />        
-          <input
-            name="lastname"
-            placeholder="Last Name"
+            name="firstname"
+            id="outlined-basic"
+            label="First Name"
+            variant="outlined"
             onChange={handleChange}
-            value={newUser.lastname}
-            type="text"
-            
           />
-          <br/>
-          <input
-            name="username"
-            placeholder="Username"
+          <br />
+          <TextField
+            value={newUser.lastname}
+            name="lastname"
+            id="outlined-basic"
+            label="Last Name"
+            variant="outlined"
             onChange={handleChange}
+          />
+          <br />
+          <TextField
             value={newUser.username}
-            type="text"
-                     
-          /> 
-               
-          <input
-            name="password"
-            placeholder="Password"
+            name="username"
+            id="outlined-basic"
+            label="Username"
+            variant="outlined"
+            onChange={handleChange}
+          />
+          <br />
+          <TextField
             onChange={handleChange}
             value={newUser.password}
-            type="password"
-            
+            name="password"
+            id="outlined-basic"
+            label="Password"
+            variant="outlined"
           />
-           
-          <br/>
-          <input
-            name="email"
-            placeholder="Email"
+          <br />
+          <TextField
             onChange={handleChange}
             value={newUser.email}
-            type="email"
-            
+            name="email"
+            id="outlined-basic"
+            label="Email"
+            variant="outlined"
           />
-           
-          <input
-            name="phone"
-            placeholder="Phone"
+          <br />
+          <TextField
             onChange={handleChange}
             value={newUser.phone}
-            type="tel"
-            
+            name="phone"
+            id="outlined-basic"
+            label="Phone Number"
+            variant="outlined"
           />
-          <br/>
-          <input
-            name="address"
-            placeholder="Address"
+          <br />
+          <TextField
             onChange={handleChange}
             value={newUser.address}
-            type="text"
-            
+            name="address"
+            id="outlined-basic"
+            label="Address"
+            variant="outlined"
           />
-          <input
-            name="state"
-            placeholder="State"
+          <br />
+          <TextField
             onChange={handleChange}
             value={newUser.state}
-            type="text"
-            
+            name="state"
+            id="outlined-basic"
+            label="State"
+            variant="outlined"
           />
-          <input
-            name="city"
-            placeholder="City"
+          <br />
+          <TextField
             onChange={handleChange}
             value={newUser.city}
-            type="text"
-            
-          />          
-          <br/>        
-          <input
-            name="zipcode"
-            placeholder="Zip Code"
+            name="city"
+            id="outlined-basic"
+            label="City"
+            variant="outlined"
+          />
+          <br />
+          <TextField
             onChange={handleChange}
             value={newUser.zipcode}
-            type="text"
-            
+            name="zipcode"
+            id="outlined-basic"
+            label="Zipcode"
+            variant="outlined"
           />
-          <br/>        
-          <Submit type='submit'>Submit</Submit>
-         
-        </Login>
-        </Middle>
-      </Back>
-    
+          <br />
+          <ThemeProvider theme={theme}>
+            <Button type='submit' >Sign Up</Button>
+            <br/>
+            <Button onClick={cancelSignup} >Cancel</Button>
+          </ThemeProvider>
+        </form>
+      </Middle>
+    </Back>
   );
 };
-
 export default Signup;
