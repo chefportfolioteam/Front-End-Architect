@@ -41,16 +41,16 @@
 .MuiPaper-rounded {
   
   border-radius: 19px;
-  width: 400px;
-  height: 600px;
+  width: 300px;
+  height: 400px;
   flex-wrap: wrap-reverse;
-  margin:20px;
+  margin: 20px;
 }
 .MuiCardActions-root {
   display: flex;
   flex-wrap: wrap;
-  padding: 8px;
-  align-items: center;
+  padding: 20px;
+  justify-content: center;
 }
 .MuiCardContent-root {
   padding: 16px;
@@ -96,3 +96,4 @@ a{
   text-decoration: none;
   color:white;
 }
+

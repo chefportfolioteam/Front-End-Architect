@@ -13,7 +13,7 @@ const SearchRecipe = props => {
   return (
     <section className="search-form">
       <form className="search">
-        <input
+        <input className='search-input'
           type="text"
           name="textfield"
           placeholder="Search..."

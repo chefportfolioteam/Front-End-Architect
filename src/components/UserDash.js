@@ -15,25 +15,13 @@ const useStyles = makeStyles({
     justifyContent: "center",
     flexDirection: "row",
     alignItems: "center",
-    minWidth: 800,
-    backgroundColor: "primary"
+    minWidth: 400,
+    boxShadow: '0 5px 7px 2px rgba(255, 105, 135, .3)',
+     
   },
 
-  title: {
-    fontSize: 30
-  },
-  pos: {
-    marginBottom: 120
-  },
-  paper: {
-    padding: "2vw",
-    textAlign: "center",
-    color: "#000000",
-    whiteSpace: "nowrap",
-    background: "#A0DB9E",
-    marginTop: "2vh",
-    marginBottom: "2vh"
-}});
+
+});
 
 
 const UserDash = props => {
@@ -58,63 +46,45 @@ const UserDash = props => {
   
     return (
         <>
+        <div className='userdash-header' />  
             
-            <SearchRecipe setSearchRecipes={setSearchRecipes} recipes={recipes}/>
+            <SearchRecipe  setSearchRecipes={setSearchRecipes} recipes={recipes}/>
 
 
             {localStorage.getItem('token')? null :
                 <nav>
-                <Link to='/login'>Log In</Link>
+                <Link  to='/login'>Log In</Link>
                 <Link to='/signup'>Sign Up</Link>
                 </nav>
                 }
              
     <Grid >
-      <CardActions>
-      
-        
+      <CardActions>        
         {searchRecipes.map((item, index) => (
           <Card>
+              <Typography 
+              className={useStyles.title}
+              color="textPrimary"
+              component="h4"
+              variant="h7"
+              gutterBottom
+            >
+            <span> {item.recipe_name}</span>
+            </Typography>
             
-              <Link key={index} to={`/recipes/${item.id}`}>
+              <Link  key={index} to={`/recipes/${item.id}`}>
                 <br />
                 {<img src={pictures[index]} alt="food" />}
                 <br />
 
                 <br />
               </Link>
-            
-
-            <Typography
-              className={useStyles.title}
-              color="textSecondary"
-              gutterBottom
-            ></Typography>
-
-            <Typography
-              className={useStyles.pos}
-              color="textSecondary"
-              variant="h4"
-            >
-              <span> {item.recipe_name}</span>
-            </Typography>
-            <Typography variant="h5" component="h2">
+            <Typography variant="h5" component="h2"color="textPrimary" >
               <span> {item.mealtype}</span>
-            </Typography>
-            
-          </Card>
-          
-        ))}
-        
-         
-      </CardActions>
-
-      {localStorage.getItem("token") ? null : (
-        <nav>
-          <Link to="/login">Log In</Link>
-          <Link to="/signup">Sign Up</Link>
-        </nav>
-      )}
+            </Typography>            
+          </Card>       
+        ))}         
+      </CardActions>      
     </Grid>
     </>
   );

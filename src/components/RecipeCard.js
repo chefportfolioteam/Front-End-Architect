@@ -7,27 +7,32 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-// import Button from "@material-ui/core/Button";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 //import { flexbox } from "@material-ui/system";
 
 const useStyles = makeStyles({
   card: {
-    margin: 50,
+    margin: 0,
     justifyContent: "center",
     flexDirection: "row",
-    alignItems: "center",
-    maxWidth: 500,
+    width: 600,
+    height: 500,
+    maxWidth: 600,
     minWidth: 275,
-    backgroundColor: "primary"
+    boxShadow: '0 5px 7px 2px rgba(255, 105, 135, .3)',
+    flexGrow: 1,
   },
 
   title: {
-    fontSize: 30
+    fontSize: 40,
+    color: 'Bondi Blue'
   },
   pos: {
-    marginBottom: 120
-  }
+    marginBottom: 100
+  },
+  
+
 });
 
 const RecipeCard = props => {
@@ -47,48 +52,51 @@ const RecipeCard = props => {
   }
 
   return (
-    <div>
-      <EditContext.Provider value={{ recipe }}>
-        {/* <div>
-          <span>{recipe.recipe_name}</span>
-          <p>{recipe.ingredients}</p>
-          <p>{recipe.instructions}</p>
-          <button onClick={cancelItem}>Cancel</button>
-        </div> */}
-
+    <div className='recipe-card-wrapper' >
+        
+    <EditContext.Provider value={{ recipe }}>
         <Card className={classes.card} variant="outlined">
-          <CardContent>
-            <Typography
-              className={classes.title}
-              color="textSecondary"
-              gutterBottom
-            >
-              <span>{recipe.recipe_name}</span>
-            </Typography>
-            <Typography variant="h5" component="h2">
-              <p>{recipe.ingredients}</p>
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-              <p>{recipe.instructions}</p>
-            </Typography>
-          </CardContent>
-          <CardActions>
-            {localStorage.getItem("token") && (
-              <Link to={`/edit-recipe/${props.match.params.id}`}><button>Update</button></Link>
-            )}
-
-            
-              <button onClick={cancelItem}>Cancel</button>
-           
-            {localStorage.getItem("token") && (
-              <button
-                onClick={e => {
+        <button className='cancel-button' variant='contained' onClick={cancelItem}>Cancel</button>
+        {localStorage.getItem("token") && (
+              <button className='delete-button'
+                onClick={(e) => {
                   deleteRecipe(props.match.params.id);
                   props.history.push("/chefdash");}}>Delete </button>
             )}
+        {localStorage.getItem("token") && (
+            
+              <Link to={`/edit-recipe/${props.match.params.id}`}><button className='update-button' >Update</button></Link>
+              
+            )}
+          <CardContent>
+            <Typography
+              className={classes.title}
+              color="textPrimary"
+              component="h3"
+              gutterBottom
+            >
+              <div>{recipe.recipe_name}</div>
+            </Typography>
+            <Typography variant="h7" component="h4" color="textSecondary" >
+              <p>{recipe.ingredients}</p>
+            </Typography>
+            <Typography  className={classes.pos} color="textSecondary" variant="h7" component="h5" >
+              <p>{recipe.instructions}</p>
+            </Typography>
+            
+          </CardContent>
+          <CardActions>
+          
+            
+
+            
+              
+           
+            
+           
           </CardActions>
         </Card>
-      </EditContext.Provider>
+    </EditContext.Provider>
     </div>
   );
 };
