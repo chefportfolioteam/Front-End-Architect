@@ -1,52 +1,89 @@
 import React, { useState } from "react";
-
+import styled from 'styled-components'
 import axios from "axios";
 
 
+const Back = styled.div `
 
+background: #00ADB5;
+
+
+
+`
+
+const Login = styled.form`
+
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-top: 20px;
+color: white;
+background: black;
+width: 200px;
+height: 390px;
+border-radius: 10px;
+padding: 30px;
+font-family: 'Spicy Rice', cursive;
+`
+
+const Middle= styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 30px;
+
+
+`
+
+const Submit = styled.button`
+
+background: #00ADB5;
+color:white;
+
+`
+const Header=styled.div`
+background:black
+display:flex;
+margin: 0 0 0 0;
+color:white;
+
+`
 
 
 
 // start of Component
 
 const Signup = props => {
-  
-  
- 
   const [newUser, setNewUser] = useState({
     firstname: "",
     lastname: "",
     username: "",
-    password: "", 
+    password: "",
     email: "",
     phone: null,
-    address: null, 
+    address: null,
     state: null,
     city: null,
     zipcode: null
-             
   });
 
-  
-
-  const handleChange = e => { 
+  const handleChange = e => {
     setNewUser({
-        ...newUser,
+      ...newUser,
       [e.target.name]: e.target.value
-    })
+    });
   };
 
-  const handleSubmit = e => {    
-   e.preventDefault()
+  const handleSubmit = e => {
+    e.preventDefault();
     axios
-      .post('https://chefportfolio10.herokuapp.com/api/auth/register', newUser)     
+      .post("https://chefportfolio10.herokuapp.com/api/auth/register", newUser)
       .then(res => {
-        console.log("registration res", res)
-        props.history.push('/login')
+        console.log("registration res", res);
+        props.history.push("/login");
       }, [])
-      
+
       .catch(error => console.log(error));
-      
   };
   const cancelSignup = () => {
     window.history.back();
@@ -54,10 +91,23 @@ const Signup = props => {
   return (
     
 
-      <div className="signup">
-        <form onSubmit={handleSubmit} >
+      <Back>
+        <Header>
+        
+          <img class="logo" src="http://josefetheridge.com/marketing-page/img/Blk_Bkgrd_Nav1.png" alt="Company logo"/>
+        
+                  <div class="main-nav">
+                      <p>Home</p>
+                      <p>About</p>
+                      <p>Contact</p>
+                      <p><a href="https://front-end-architect-fuh3xh1sq.now.sh/">Login</a></p>
+                  </div>
+        </Header>
+        <Middle>
+        <Login onSubmit={handleSubmit} >
        
         <h3>Sign-Up</h3>
+      
           <input
             name="firstname"
             placeholder="First Name"
@@ -146,11 +196,11 @@ const Signup = props => {
             
           />
           <br/>        
-          <button>Submit</button>
+          <Submit type='submit'>Submit</Submit>
          
-        </form>
-        <button onClick={cancelSignup} >Cancel</button>
-      </div>
+        </Login>
+        </Middle>
+      </Back>
     
   );
 };
